@@ -2,13 +2,7 @@ export default function () {
   return (
     <div className="navbar navbar-expand-lg bg-danger-subtle">
       <div className="container-fluid justify-content-center">
-        <div
-          style={{
-            padding: "6px 10px",
-            textDecoration: "none",
-            whiteSpace: "nowrap",
-          }}
-        >
+        <div style={{ padding: "6px 10px" }}>
           <a
             className="text-danger"
             target="_blank"

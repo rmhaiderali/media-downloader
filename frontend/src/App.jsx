@@ -31,7 +31,7 @@ export default function () {
 
       // setPostURL("");
       setStep(2);
-      let response = await fetch(SERVER + "/media/" + platform.current, {
+      let response = await fetch(SERVER + "media/" + platform.current, {
         method: "POST",
         body: JSON.stringify({ url: postURL, quality }),
       });
@@ -140,14 +140,14 @@ export default function () {
                         <Video
                           key={url}
                           url={
-                            SERVER + "/media/" + platform.current + "/" + url
+                            SERVER + "media/" + platform.current + "/" + url
                           }
                         />
                       ) : (
                         <Image
                           key={url}
                           url={
-                            SERVER + "/media/" + platform.current + "/" + url
+                            SERVER + "media/" + platform.current + "/" + url
                           }
                         />
                       )

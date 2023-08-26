@@ -9,10 +9,11 @@ export default defineConfig({
   define: {
     SERVER: stringer(
       [
-        "http://localhost:3001",
-        "http://159.223.36.123:3001",
-        "https://ueso.000webhostapp.com",
-      ][2]
+        "/",
+        "http://localhost:3001/",
+        "http://159.223.36.123:3001/",
+        "https://ueso.000webhostapp.com/",
+      ][3]
     ),
   },
 });
