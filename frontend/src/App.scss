@@ -1,0 +1,84 @@
+@import "bootstrap/scss/bootstrap";
+
+.form-control:focus {
+  border-color: var(--bs-form-invalid-border-color);
+  box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-width: 330px;
+  min-height: 100%;
+  margin: 0 auto;
+}
+
+.alert {
+  margin-bottom: 0;
+  padding: 8px;
+}
+
+.main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.download {
+  margin: 10px;
+  width: 300px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+}
+
+::selection {
+  color: white;
+  background-color: var(--bs-danger);
+}
+
+.loading {
+  animation-timing-function: linear;
+  animation-name: loading;
+  animation-iteration-count: infinite;
+  animation-duration: 0.75s;
+  height: 30px;
+  width: 30px;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading > :first-child {
+  fill: none;
+  opacity: 0.2;
+  stroke-width: 4;
+  stroke: var(--bs-danger);
+}
+.loading > :last-child {
+  fill: none;
+  stroke: var(--bs-danger);
+  stroke-dasharray: 80;
+  stroke-dashoffset: 60;
+  stroke-width: 4;
+}
