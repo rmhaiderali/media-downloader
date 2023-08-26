@@ -4,12 +4,12 @@ dotenv.config();
 import fs from "fs";
 import express from "express";
 import bodyParser from "body-parser";
-const app = express();
 import cors from "cors";
 import getMediaURLs from "./geturls.js";
 import downloader from "./downloadcheck.js";
 import remote from "./remote.js";
 
+const app = express();
 app.use(cors());
 // app.use(express.json());
 app.use(bodyParser.text({ type: ["text/plain", "application/json"] }));

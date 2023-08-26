@@ -9,7 +9,12 @@ export default function () {
             whiteSpace: "nowrap",
           }}
         >
-          <a className="text-danger" href="https://github.com/nothaiderali/media-downloader">
+          <a
+            className="text-danger"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/nothaiderali/media-downloader"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="28"
