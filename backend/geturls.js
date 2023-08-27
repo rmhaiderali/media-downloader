@@ -2,6 +2,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import axios from "axios";
+import "./proto/style.js";
 
 const gbl = {
   instagram: {},
@@ -40,10 +41,11 @@ const instagramOld = async (url) => {
 
 const instagram = async (url, quality, shortcode) => {
   if (!process.env.IG_SESSIONID)
-    throw new Error("No Instagram session ID was provided.");
+    throw new Error("Instagram Session ID is missing.".style(31));
   try {
     if (gbl.instagram.fb_dtsg_last_refresh !== new Date().toDateString()) {
       const html = await axios.get("https://www.instagram.com/", {
+        validateStatus: () => true,
         headers: {
           "content-type": "application/x-www-form-urlencoded",
           "sec-fetch-site": "same-origin",
@@ -53,7 +55,7 @@ const instagram = async (url, quality, shortcode) => {
       });
       const fb_dtsg = html.data.match(/"f":"(.*)","l":null}/);
       console.log("fb_dtsg:", fb_dtsg ? fb_dtsg[1] : "Not Found");
-      if (!fb_dtsg) return { code: 500, msg: "Session ID has expired." };
+      if (!fb_dtsg) return { code: 500, msg: "Session ID is not valid." };
       gbl.instagram.fb_dtsg = fb_dtsg[1];
       gbl.instagram.fb_dtsg_last_refresh = new Date().toDateString();
     }
