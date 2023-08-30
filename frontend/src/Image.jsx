@@ -1,4 +1,13 @@
 export default function ({ url }) {
+  function adjust(e) {
+    if (e.target.naturalHeight < e.target.naturalWidth)
+      e.target.style.removeProperty("height");
+    else if (e.target.naturalWidth < e.target.naturalHeight)
+      e.target.style.removeProperty("width");
+
+    e.target.style.removeProperty("display");
+  }
+
   return (
     <div className="download">
       <div
@@ -14,14 +23,7 @@ export default function ({ url }) {
         }}
       >
         <img
-          onLoad={(e) => {
-            if (e.target.naturalHeight < e.target.naturalWidth)
-              e.target.style.removeProperty("height");
-            else if (e.target.naturalWidth < e.target.naturalHeight)
-              e.target.style.removeProperty("width");
-
-            e.target.style.removeProperty("display");
-          }}
+          onLoad={adjust}
           style={{
             display: "none",
             width: "100%",

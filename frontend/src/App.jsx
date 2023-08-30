@@ -135,23 +135,15 @@ export default function () {
                       justifyContent: "center",
                     }}
                   >
-                    {mediaURLs.map((url) =>
-                      url.split(".")[1] === "mp4" ? (
-                        <Video
+                    {mediaURLs.map((url) => {
+                      const Media = url.split(".")[1] === "mp4" ? Video : Image;
+                      return (
+                        <Media
                           key={url}
-                          url={
-                            SERVER + "media/" + platform.current + "/" + url
-                          }
+                          url={SERVER + "media/" + platform.current + "/" + url}
                         />
-                      ) : (
-                        <Image
-                          key={url}
-                          url={
-                            SERVER + "media/" + platform.current + "/" + url
-                          }
-                        />
-                      )
-                    )}
+                      );
+                    })}
                   </div>
                 )}
               </div>
