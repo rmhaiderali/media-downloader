@@ -14,26 +14,25 @@ export default function () {
     threads:
       /^https?:\/\/(?:www\.)?threads\.net\/(?:t|@?[a-z0-9._]{1,30}\/post)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/,
   };
-  const [postURL, setPostURL] = useState("");
-  const [quality, setQuality] = useState(2);
   const platform = useRef();
+  const [url, setUrl] = useState("");
+  const [quality, setQuality] = useState(2);
+  const [mediaUrls, setMediaUrls] = useState([]);
   const [step, setStep] = useState(1);
-  const [mediaURLs, setMediaURLs] = useState();
-  const [alert, setAlert] = useState();
+  const [alert, setAlert] = useState(null);
 
   const fetchURLs = async () => {
-    setAlert();
+    setAlert(null);
     try {
-      // console.log(postURL);
-      if (postURL.match(regex.instagram)) platform.current = "instagram";
-      else if (postURL.match(regex.threads)) platform.current = "threads";
+      // console.log(url);
+      if (url.match(regex.instagram)) platform.current = "instagram";
+      else if (url.match(regex.threads)) platform.current = "threads";
       else return setAlert(<Alert message="Provided URL is not valid." />);
-
-      // setPostURL("");
       setStep(2);
+
       let response = await fetch(SERVER + "media/" + platform.current, {
         method: "POST",
-        body: JSON.stringify({ url: postURL, quality }),
+        body: JSON.stringify({ url, quality }),
       });
       response = await response.json();
       // console.log(response);
@@ -42,14 +41,16 @@ export default function () {
         setAlert(<Alert message={response.error} />);
         setStep(1);
       } else {
-        setAlert();
-        setMediaURLs(response.url);
+        setAlert(null);
+        setMediaUrls(response.url);
         setStep(3);
       }
     } catch (e) {
-      // console.error(e);
+      console.error(e);
       setAlert(<Alert message="API is not accessible." />);
       setStep(1);
+    } finally {
+      // setUrl("");
     }
   };
 
@@ -73,8 +74,8 @@ export default function () {
                   className="my-3 form-control align-center"
                   placeholder="URL"
                   id="url"
-                  value={postURL}
-                  onChange={(e) => setPostURL(e.target.value)}
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
                 />
 
                 <div className="d-grid gap-2 col-md-5 mx-auto my-4">
@@ -84,7 +85,7 @@ export default function () {
                   <input
                     style={{
                       width: "auto",
-                      accentColor: "#dc3546",
+                      accentColor: "var(--bs-danger)",
                     }}
                     type="range"
                     min="1"
@@ -118,7 +119,7 @@ export default function () {
                     </span>
                   </div>
                 </div>
-                {(step == 1 || step == 3) && (
+                {(step === 1 || step === 3) && (
                   <button
                     onClick={fetchURLs}
                     className="d-grid gap-2 col-5 mx-auto btn btn-outline-danger my-4"
@@ -126,8 +127,8 @@ export default function () {
                     Fetch Media
                   </button>
                 )}
-                {step == 2 && <Spinner />}
-                {step == 3 && (
+                {step === 2 && <Spinner />}
+                {step === 3 && (
                   <div
                     style={{
                       display: "flex",
@@ -135,7 +136,7 @@ export default function () {
                       justifyContent: "center",
                     }}
                   >
-                    {mediaURLs.map((url) => {
+                    {mediaUrls.map((url) => {
                       const Media = url.split(".")[1] === "mp4" ? Video : Image;
                       return (
                         <Media
