@@ -12,7 +12,7 @@ parse_str($queryString, $queryParams);
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
 // Construct the proxy URL
-$proxyUrl = "http://159.223.36.123:3001" . $_SERVER["REQUEST_URI"];
+$proxyUrl = "http://159.223.36.123:3001/media" . str_replace($_SERVER["SCRIPT_NAME"], "", $_SERVER["REQUEST_URI"]);;
 
 // Create a cURL handle
 $ch = curl_init();

@@ -15,10 +15,10 @@ app.use(cors());
 app.use(bodyParser.text({ type: ["text/plain", "application/json"] }));
 
 const allowedDomains = [
-  "http://localhost:3001",
   "http://localhost:5173",
+  "http://localhost:3001",
   "http://159.223.36.123:3001",
-  "https://smiling-lapel-newt.cyclic.app",
+  "https://download.cyclic.app",
   "https://igram.ltd",
 ];
 
