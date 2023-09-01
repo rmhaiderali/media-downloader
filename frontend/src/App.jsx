@@ -1,13 +1,56 @@
 import { useState, useRef } from "react";
-import Alert from "./Alert";
-import Image from "./Image";
-import Video from "./Video";
 import Spinner from "./Spinner";
 import Header from "./Header";
 import Footer from "./Footer";
+import Media from "./Media";
+import Alert from "./Alert";
+import "./proto/format";
 import "./App.scss";
 
 export default function () {
+  const colorKeywordToRGB = (colorKeyword) => {
+    const el = document.createElement("div");
+    el.style.color = colorKeyword;
+    document.body.appendChild(el);
+    const value = window.getComputedStyle(el).color;
+    document.body.removeChild(el);
+    return value;
+  };
+
+  const AccentColor = colorKeywordToRGB("AccentColor");
+  console.log(AccentColor);
+
+  const isAccentColorSupported = !["rgb(0, 0, 0)", "rgba(0, 0, 0, 0)"].includes(
+    AccentColor
+  );
+  const isColorMixSupported = CSS.supports(
+    "color",
+    "color-mix(in srgb, red, blue)"
+  );
+
+  document.body.style.setProperty(
+    "--theme",
+    isAccentColorSupported ? "AccentColor" : "#dc3545"
+  );
+
+  document.body.style.setProperty(
+    "--theme-t50",
+    isColorMixSupported
+      ? "color-mix(in srgb, var(--theme), transparent 50%)"
+      : "rgba({0}, 0.50)".format(
+          isAccentColorSupported ? AccentColor.slice(4, ~0) : "220, 53, 69"
+        )
+  );
+
+  document.body.style.setProperty(
+    "--theme-t80",
+    isColorMixSupported
+      ? "color-mix(in srgb, var(--theme), transparent 80%)"
+      : "rgba({0}, 0.20)".format(
+          isAccentColorSupported ? AccentColor.slice(4, ~0) : "220, 53, 69"
+        )
+  );
+
   const regex = {
     instagram:
       /^https?:\/\/(?:www\.)?instagram\.com\/(?:p|reels?|tv)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/,
@@ -17,7 +60,7 @@ export default function () {
   const platform = useRef();
   const [url, setUrl] = useState("");
   const [quality, setQuality] = useState(2);
-  const [mediaUrls, setMediaUrls] = useState([]);
+  const [urls, setUrls] = useState([]);
   const [step, setStep] = useState(1);
   const [alert, setAlert] = useState(null);
 
@@ -42,7 +85,7 @@ export default function () {
         setStep(1);
       } else {
         setAlert(null);
-        setMediaUrls(response.url);
+        setUrls(response.url);
         setStep(3);
       }
     } catch (e) {
@@ -63,10 +106,10 @@ export default function () {
           <div className="py-3">
             <div className="row">
               <div>
-                <h5 className="card-title text-danger text-center">
+                <h5 className="card-title text-accent text-center">
                   Download Images & Videos
                 </h5>
-                <p className="my-2 card-text text-danger text-center">
+                <p className="my-2 card-text text-accent text-center">
                   from Instagram & Threads
                 </p>
                 <input
@@ -79,13 +122,13 @@ export default function () {
                 />
 
                 <div className="d-grid gap-2 col-md-5 mx-auto my-4">
-                  <span className="card-text text-danger text-center">
+                  <span className="card-text text-accent text-center">
                     Set media quality
                   </span>
                   <input
                     style={{
                       width: "auto",
-                      accentColor: "var(--bs-danger)",
+                      accentColor: "var(--theme)",
                     }}
                     type="range"
                     min="1"
@@ -122,31 +165,13 @@ export default function () {
                 {(step === 1 || step === 3) && (
                   <button
                     onClick={fetchURLs}
-                    className="d-grid gap-2 col-5 mx-auto btn btn-outline-danger my-4"
+                    className="d-grid gap-2 col-5 mx-auto btn my-4"
                   >
                     Fetch Media
                   </button>
                 )}
                 {step === 2 && <Spinner />}
-                {step === 3 && (
-                  <div
-                    style={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {mediaUrls.map((url) => {
-                      const Media = url.split(".")[1] === "mp4" ? Video : Image;
-                      return (
-                        <Media
-                          key={url}
-                          url={SERVER + "media/" + platform.current + "/" + url}
-                        />
-                      );
-                    })}
-                  </div>
-                )}
+                {step === 3 && <Media urls={urls} platform={platform} />}
               </div>
             </div>
           </div>

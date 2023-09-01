@@ -1,10 +1,13 @@
 export default function () {
   return (
-    <div className="navbar navbar-expand-lg bg-danger-subtle">
-      <div className="container-fluid justify-content-center">
+    <div
+      className="navbar bg-accent-t80"
+      style={{ borderTop: "1px solid var(--theme-t50)" }}
+    >
+      <div className="container-fluid" style={{ justifyContent: "center" }}>
         <div style={{ padding: "6px 10px" }}>
           <a
-            className="text-danger"
+            className="text-accent"
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/nothaiderali/media-downloader"

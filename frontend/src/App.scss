@@ -1,8 +1,189 @@
-@import "bootstrap/scss/bootstrap";
-
+* {
+  box-sizing: border-box;
+}
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+body {
+  margin: 0;
+  font-family: system-ui;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+h5 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+h5 {
+  font-size: 1.25rem;
+}
+input,
+button {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+.container,
+.container-fluid {
+  width: 100%;
+  padding-right: calc(1.5rem * 0.5);
+  padding-left: calc(1.5rem * 0.5);
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row > * {
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.col-5 {
+  flex: 0 0 auto;
+  width: 41.66666667%;
+}
+@media (min-width: 768px) {
+  .col-md-5 {
+    flex: 0 0 auto;
+    width: 41.66666667%;
+  }
+}
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  background-clip: padding-box;
+  border: 1px solid #dee2e6;
+  appearance: none;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .form-control {
+    transition: none;
+  }
+}
 .form-control:focus {
-  border-color: var(--bs-form-invalid-border-color);
-  box-shadow: 0 0 0 0.25rem rgba(var(--bs-danger-rgb), 0.25);
+  border-color: var(--theme);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem var(--theme-t80);
+}
+.btn {
+  padding: 0.375rem 0.75rem;
+  color: var(--theme);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid var(--theme);
+  border-radius: 0.375rem;
+  background-color: transparent;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+.btn:hover {
+  color: white;
+  background-color: var(--theme);
+  border-color: var(--theme);
+}
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+}
+.navbar > .container-fluid {
+  display: flex;
+  flex-wrap: inherit;
+  align-items: center;
+  justify-content: space-between;
+}
+.d-grid {
+  display: grid;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
+.my-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.my-3 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.my-4 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.p-3 {
+  padding: 1rem;
+}
+.py-3 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.gap-2 {
+  gap: 0.5rem;
+}
+.fw-semibold {
+  font-weight: 600;
+}
+.text-center {
+  text-align: center;
+}
+.text-accent {
+  color: var(--theme);
+}
+.bg-accent-t80 {
+  background-color: var(--theme-t80);
 }
 
 input:-webkit-autofill,
@@ -28,11 +209,6 @@ body {
   margin: 0 auto;
 }
 
-.alert {
-  margin-bottom: 0;
-  padding: 8px;
-}
-
 .main {
   flex-grow: 1;
   display: flex;
@@ -40,17 +216,9 @@ body {
   justify-content: space-evenly;
 }
 
-.download {
-  margin: 10px;
-  width: 300px;
-  height: 350px;
-  display: flex;
-  flex-direction: column;
-}
-
 ::selection {
   color: white;
-  background-color: var(--bs-danger);
+  background-color: var(--theme);
 }
 
 .loading {
@@ -73,12 +241,20 @@ body {
   fill: none;
   opacity: 0.2;
   stroke-width: 4;
-  stroke: var(--bs-danger);
+  stroke: var(--theme);
 }
 .loading > :last-child {
   fill: none;
-  stroke: var(--bs-danger);
+  stroke: var(--theme);
   stroke-dasharray: 80;
   stroke-dashoffset: 60;
   stroke-width: 4;
+}
+
+.alert {
+  padding: 8px;
+  color: var(--theme);
+  background-color: var(--theme-t80);
+  border: 1px solid var(--theme-t50);
+  border-radius: 0.375rem;
 }

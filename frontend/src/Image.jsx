@@ -9,37 +9,27 @@ export default function ({ url }) {
   }
 
   return (
-    <div className="download">
-      <div
+    <div
+      style={{
+        width: "300px",
+        height: "300px",
+        backgroundColor: "black",
+        borderRadius: "6px",
+        overflow: "hidden",
+        display: "flex",
+        flexWrap: "wrap",
+        placeContent: "center",
+      }}
+    >
+      <img
+        onLoad={adjust}
         style={{
-          width: "300px",
-          height: "300px",
-          backgroundColor: "black",
-          borderRadius: "6px",
-          overflow: "hidden",
-          display: "flex",
-          flexWrap: "wrap",
-          placeContent: "center",
+          display: "none",
+          width: "100%",
+          height: "100%",
         }}
-      >
-        <img
-          onLoad={adjust}
-          style={{
-            display: "none",
-            width: "100%",
-            height: "100%",
-          }}
-          src={url}
-        ></img>
-      </div>
-      <a
-        href={url + "?download=1"}
-        download
-        className="btn btn-outline-danger"
-        style={{ width: "100%", marginTop: "12px" }}
-      >
-        Download
-      </a>
+        src={url}
+      ></img>
     </div>
   );
 }

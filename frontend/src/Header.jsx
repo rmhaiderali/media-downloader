@@ -1,6 +1,9 @@
 export default function () {
   return (
-    <div className="navbar navbar-expand-lg bg-danger-subtle">
+    <div
+      className="navbar bg-accent-t80"
+      style={{ borderBottom: "1px solid var(--theme-t50)" }}
+    >
       <div className="container-fluid">
         <div style={{ padding: "5px 10px" }}>
           <a
@@ -9,7 +12,7 @@ export default function () {
               textDecoration: "none",
               cursor: "pointer",
             }}
-            className="fw-semibold text-danger"
+            className="fw-semibold text-accent"
             // href="/"
           >
             Media Downloader
