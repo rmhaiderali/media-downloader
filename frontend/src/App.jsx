@@ -18,7 +18,6 @@ export default function () {
   };
 
   const AccentColor = colorKeywordToRGB("AccentColor");
-  console.log(AccentColor);
 
   const isAccentColorSupported = !["rgb(0, 0, 0)", "rgba(0, 0, 0, 0)"].includes(
     AccentColor
