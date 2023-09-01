@@ -19,17 +19,17 @@ export default function () {
 
   const AccentColor = colorKeywordToRGB("AccentColor");
 
-  const isAccentColorSupported = !["rgb(0, 0, 0)", "rgba(0, 0, 0, 0)"].includes(
+  const isAccentColorProvided = !["rgb(0, 0, 0)", "rgba(0, 0, 0, 0)"].includes(
     AccentColor
   );
   const isColorMixSupported = CSS.supports(
     "color",
-    "color-mix(in srgb, red, blue)"
+    "color-mix(in srgb, AccentColor, transparent)"
   );
 
   document.body.style.setProperty(
     "--theme",
-    isAccentColorSupported ? "AccentColor" : "#dc3545"
+    isAccentColorProvided ? "AccentColor" : "#dc3545"
   );
 
   document.body.style.setProperty(
@@ -37,7 +37,7 @@ export default function () {
     isColorMixSupported
       ? "color-mix(in srgb, var(--theme), transparent 50%)"
       : "rgba({0}, 0.50)".format(
-          isAccentColorSupported ? AccentColor.slice(4, ~0) : "220, 53, 69"
+          isAccentColorProvided ? AccentColor.slice(4, ~0) : "220, 53, 69"
         )
   );
 
@@ -46,7 +46,7 @@ export default function () {
     isColorMixSupported
       ? "color-mix(in srgb, var(--theme), transparent 80%)"
       : "rgba({0}, 0.20)".format(
-          isAccentColorSupported ? AccentColor.slice(4, ~0) : "220, 53, 69"
+          isAccentColorProvided ? AccentColor.slice(4, ~0) : "220, 53, 69"
         )
   );
 

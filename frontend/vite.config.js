@@ -13,7 +13,7 @@ export default defineConfig({
         "http://localhost:3001/",
         "http://159.223.36.123:3001/",
         "https://ueso.000webhostapp.com/",
-      ][0]
+      ][3]
     ),
   },
 });
