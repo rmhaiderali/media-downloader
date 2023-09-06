@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Media from "./Media";
 import Alert from "./Alert";
 import "./proto/format";
-import "./App.scss";
+import "./App.css";
 
 export default function () {
   const colorKeywordToRGB = (colorKeyword) => {
