@@ -72,10 +72,13 @@ export default function () {
       else return setAlert(<Alert message="Provided URL is not valid." />);
       setStep(2);
 
-      let response = await fetch(SERVER + "media/" + platform.current, {
-        method: "POST",
-        body: JSON.stringify({ url, quality }),
-      });
+      let response = await fetch(
+        (PROXY ? PROXY + "/?url=" : "") + SERVER + "media/" + platform.current,
+        {
+          method: "POST",
+          body: JSON.stringify({ url, quality }),
+        }
+      );
       response = await response.json();
       // console.log(response);
 
