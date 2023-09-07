@@ -12,7 +12,9 @@ export default function ({ urls, platform }) {
     >
       {urls.map((url) => {
         const Media = url.split(".")[1] === "mp4" ? Video : Image;
-        url = SERVER + "media/" + platform.current + "/" + url;
+        //prettier-ignore
+        url = (PROXY ? PROXY + "/" + url + "?url=" : "") +
+          SERVER + "media/" + platform.current + "/" + url;
 
         return (
           <div

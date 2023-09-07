@@ -1,67 +1,73 @@
 <?php
-// Get all request headers
-$requestHeaders = getallheaders();
+function send_error($code, $message)
+{
+    http_response_code($code);
+    header("Content-Type: application/json");
+    echo json_encode(["error" => $message]);
+    exit;
+}
 
-// Determine the request method (GET, POST, PUT, DELETE, etc.)
+if (!isset($_REQUEST["url"]))
+    send_error(500, "Required perameter 'url' is missing.");
+
+if (!filter_var($_REQUEST["url"], FILTER_VALIDATE_URL))
+    send_error(500, "Provided url is not valid.");
+
+$requestUrl = $_REQUEST["url"];
+$requestHeaders = getallheaders();
 $requestMethod = $_SERVER["REQUEST_METHOD"];
 
-// Construct the URL for the main server
-$requestUrl = "http://159.223.36.123:3001/media" . str_replace($_SERVER["SCRIPT_NAME"], "", $_SERVER["REQUEST_URI"]);
 
-// Create a cURL handle
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $requestUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($ch, CURLOPT_HEADER, 1);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $requestMethod);
 
-// Set custom headers from the client's request
+// client {headers} => server
 $clientHeaders = [];
 foreach ($requestHeaders as $header => $value) {
-    $clientHeaders[] = "$header: $value";
+    // exclude the "host" header
+    if (!preg_match("/host/i", $header)) {
+        $clientHeaders[] = "$header: $value";
+    }
 }
 curl_setopt($ch, CURLOPT_HTTPHEADER, $clientHeaders);
 
-// If it's a POST or PUT request, set the request data
+// client {body}  => server
 if ($requestMethod === "POST" || $requestMethod === "PUT") {
     $postData = file_get_contents("php://input");
     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 }
 
-// Execute cURL and retrieve the response along with additional information
+// execute curl and retrieve the response along with additional information
 $response = curl_exec($ch);
 $responseStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $responseContentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 $responseHeaderSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-
-// Check if the main server refused to connect
-if ($responseStatusCode === 0) {
-    http_response_code(500);
-    header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json");
-    echo json_encode(["error" => "Main server refused to connect."]);
-    exit;
-}
-
-// Extract response headers from the cURL response
-$responseHeaders = substr($response, 0, $responseHeaderSize);
-
-// Close the cURL handle
 curl_close($ch);
+header("Access-Control-Allow-Origin: *");
 
-// Set the status code received from the main server
+if ($responseStatusCode === 0)
+    send_error(500, parse_url($_REQUEST["url"])["host"] . " can't be reached.");
+
+// server {status code} => client
 http_response_code($responseStatusCode);
 
-// Split the response headers into an array and exclude unwanted headers
-$excludeHeaders = ["Content-Security-Policy: default-src 'none'"];
-$responseHeaders = array_diff(explode("\r\n", $responseHeaders), $excludeHeaders);
+// headers which should be excluded
+$excludeHeaders = ["Content-Security-Policy", "Access-Control-Allow-Origin"];
+if (isset($_REQUEST["download"]) && $_REQUEST["download"] === "1") {
+    $excludeHeaders[] = "Content-Type";
+    header("Content-Type: application/octet-stream");
+}
 
-// Forward the received headers from the main server back to the client
-foreach ($responseHeaders as $header) {
-    if (!empty($header)) {
+// server {headers} => client
+$exclusionPattern = "/" . join("|", $excludeHeaders) . "/i";
+foreach (explode("\r\n", substr($response, 0, $responseHeaderSize)) as $header) {
+    if (!preg_match($exclusionPattern, $header) && !empty($header)) {
         header($header);
     }
 }
 
-// Output the response body (excluding headers)
+// server {body} => client
 echo substr($response, $responseHeaderSize);
