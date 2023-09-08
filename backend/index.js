@@ -75,7 +75,7 @@ app.post("/media/:platform", async (req, res) => {
     });
   }
 
-  remote(req);
+  if (process.env.LOG.charAt(0) === "1") remote(req);
 
   let links = await getMediaURLs[platform](
     req.body.url,
