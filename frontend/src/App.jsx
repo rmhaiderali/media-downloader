@@ -4,52 +4,9 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Media from "./Media";
 import Alert from "./Alert";
-import "./proto/format";
 import "./App.css";
 
 export default function () {
-  const colorKeywordToRGB = (colorKeyword) => {
-    const el = document.createElement("div");
-    el.style.color = colorKeyword;
-    document.body.appendChild(el);
-    const value = window.getComputedStyle(el).color;
-    document.body.removeChild(el);
-    return value;
-  };
-
-  const AccentColor = colorKeywordToRGB("AccentColor");
-
-  const isAccentColorProvided = !["rgb(0, 0, 0)", "rgba(0, 0, 0, 0)"].includes(
-    AccentColor
-  );
-  const isColorMixSupported = CSS.supports(
-    "color",
-    "color-mix(in srgb, AccentColor, transparent)"
-  );
-
-  document.body.style.setProperty(
-    "--theme",
-    isAccentColorProvided ? "AccentColor" : "#dc3545"
-  );
-
-  document.body.style.setProperty(
-    "--theme-t50",
-    isColorMixSupported
-      ? "color-mix(in srgb, var(--theme), transparent 50%)"
-      : "rgba({0}, 0.50)".format(
-          isAccentColorProvided ? AccentColor.slice(4, ~0) : "220, 53, 69"
-        )
-  );
-
-  document.body.style.setProperty(
-    "--theme-t80",
-    isColorMixSupported
-      ? "color-mix(in srgb, var(--theme), transparent 80%)"
-      : "rgba({0}, 0.20)".format(
-          isAccentColorProvided ? AccentColor.slice(4, ~0) : "220, 53, 69"
-        )
-  );
-
   const regex = {
     instagram:
       /^https?:\/\/(?:www\.)?instagram\.com\/(?:p|reels?|tv)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/,

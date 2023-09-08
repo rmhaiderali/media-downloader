@@ -3,5 +3,3 @@ String.prototype.format = function () {
     return typeof arguments[number] !== "undefined" ? arguments[number] : match;
   });
 };
-
-export default String.prototype;
