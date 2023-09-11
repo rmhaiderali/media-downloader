@@ -53,12 +53,18 @@ const instagram = async (url, quality, shortcode) => {
           "user-agent": gbl.userAgent,
         },
       });
+      gbl.instagram.fb_dtsg_last_refresh = new Date().toDateString();
       const fb_dtsg = html.data.match(/"f":"(.*)","l":null}/);
       console.log("fb_dtsg:", fb_dtsg ? fb_dtsg[1] : "Not Found");
-      if (!fb_dtsg) return { code: 500, msg: "Session ID is not valid." };
-      gbl.instagram.fb_dtsg = fb_dtsg[1];
-      gbl.instagram.fb_dtsg_last_refresh = new Date().toDateString();
+
+      if (fb_dtsg) {
+        delete gbl.instagram.error;
+        gbl.instagram.fb_dtsg = fb_dtsg[1];
+      } else {
+        gbl.instagram.error = "Session ID is not valid.";
+      }
     }
+    if (gbl.instagram.error) return { code: 500, msg: gbl.instagram.error };
 
     const response = await axios.request(
       "https://www.instagram.com/api/graphql",
