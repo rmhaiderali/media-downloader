@@ -30,7 +30,17 @@ const regex = {
 };
 const isBetween = (value, num1, num2) => value > num1 && value < num2;
 
-app.post("/media/:platform", async (req, res) => {
+function exeRemote(req, res, next) {
+  const send = res.send;
+  res.send = function () {
+    if (res.statusCode === 201 && process.env.LOG.charAt(0) === "1")
+      remote(req);
+    send.apply(res, arguments);
+  };
+  next();
+}
+
+app.post("/media/:platform", exeRemote, async (req, res) => {
   const domain = req.headers.origin?.split("//")?.[1];
   const platform = req.params.platform;
 
@@ -74,8 +84,6 @@ app.post("/media/:platform", async (req, res) => {
         .map((e) => matched[1] + quality + "/" + e),
     });
   }
-
-  if (process.env.LOG.charAt(0) === "1") remote(req);
 
   let links = await getMediaURLs[platform](
     req.body.url,

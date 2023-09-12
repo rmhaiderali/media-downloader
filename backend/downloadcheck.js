@@ -10,7 +10,7 @@ const downloader = (links, platfrom, post, res) => {
       target[property] = value;
 
       if (target.filter(Boolean).length === links.length)
-        res.json({ url: paths });
+        res.status(201).json({ url: paths });
 
       return true;
     },
