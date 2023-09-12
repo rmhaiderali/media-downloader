@@ -1,34 +1,57 @@
 "use strict";
 import fs from "fs";
 import https from "https";
-import { v4 as uuidv4 } from "uuid";
 import path from "path";
+import sharp from "sharp";
+import { v4 as uuidv4 } from "uuid";
 
 const downloader = (links, platfrom, post, res) => {
+  const postDirectory = "public/media/" + platfrom + "/" + post + "/";
+
   let changeHandler = {
     set: function (target, property, value, receiver) {
       target[property] = value;
 
-      if (target.filter(Boolean).length === links.length)
-        res.status(201).json({ url: paths });
+      if (target.filter(Boolean).length === links.length) {
+        fs.writeFileSync(postDirectory + ".items", JSON.stringify({ items }));
+        res.status(201).json({ items });
+      }
 
       return true;
     },
   };
-  const paths = new Proxy([], changeHandler);
+  const items = new Proxy([], changeHandler);
 
   links.forEach((element, index) => {
     console.log(element);
-    const filename = index + uuidv4() + path.extname(new URL(element).pathname);
-    const file = fs.createWriteStream(
-      "public/media/" + platfrom + "/" + post + "/" + filename
-    );
-    https.get(element, function (response) {
-      response.pipe(file);
+    const extention = path.extname(new URL(element).pathname);
+    const filename = index + uuidv4() + extention;
+    const file = postDirectory + filename;
 
-      file.on("finish", () => {
-        file.close();
-        paths[index] = post + "/" + filename;
+    https.get(element, function (response) {
+      const data = [];
+      response.on("data", function (chunk) {
+        data.push(chunk);
+      });
+
+      response.on("end", async () => {
+        const buffer = Buffer.concat(data);
+        fs.writeFileSync(file, buffer);
+
+        if (extention === ".mp4") {
+          items[index] = { path: post + "/" + filename, format: "mp4" };
+        } else {
+          const image = sharp(buffer).resize(300).blur(30);
+          const buffer2 = await image.toBuffer();
+          const metadata = await image.metadata();
+          items[index] = {
+            path: post + "/" + filename,
+            format: metadata.format,
+            width: metadata.width,
+            height: metadata.height,
+            blur: buffer2.toString("base64"),
+          };
+        }
         // console.log("Download Completed.");
       });
     });

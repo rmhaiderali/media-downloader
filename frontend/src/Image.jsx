@@ -1,12 +1,11 @@
-export default function ({ url }) {
-  function adjust(e) {
-    if (e.target.naturalHeight < e.target.naturalWidth)
-      e.target.style.removeProperty("height");
-    else if (e.target.naturalWidth < e.target.naturalHeight)
-      e.target.style.removeProperty("width");
+import { useRef } from "react";
 
-    e.target.style.removeProperty("display");
-  }
+export default function ({ item }) {
+  const blurred = useRef();
+
+  const size = { width: "100%", height: "100%" };
+  if (item.height < item.width) delete size.height;
+  else if (item.width < item.height) delete size.width;
 
   return (
     <div
@@ -22,13 +21,17 @@ export default function ({ url }) {
       }}
     >
       <img
-        onLoad={adjust}
-        style={{
-          display: "none",
-          width: "100%",
-          height: "100%",
+        ref={blurred}
+        style={size}
+        src={"data:image/" + item.format + ";base64," + item.blur}
+      ></img>
+      <img
+        onLoad={(e) => {
+          blurred.current.style.display = "none";
+          e.target.style.removeProperty("display");
         }}
-        src={url}
+        style={Object.assign({ display: "none" }, size)}
+        src={item.url}
       ></img>
     </div>
   );

@@ -1,4 +1,4 @@
-export default function ({ url }) {
+export default function ({ item }) {
   return (
     <video
       style={{
@@ -12,7 +12,7 @@ export default function ({ url }) {
       controls
       controlsList="nodownload"
     >
-      <source src={url} />
+      <source src={item.url} />
     </video>
   );
 }

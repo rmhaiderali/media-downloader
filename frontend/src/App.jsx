@@ -16,11 +16,11 @@ export default function () {
   const platform = useRef();
   const [url, setUrl] = useState("");
   const [quality, setQuality] = useState(2);
-  const [urls, setUrls] = useState([]);
+  const [items, setItems] = useState([]);
   const [step, setStep] = useState(1);
   const [alert, setAlert] = useState(null);
 
-  const fetchURLs = async () => {
+  const fetchMedia = async () => {
     setAlert(null);
     try {
       // console.log(url);
@@ -44,7 +44,7 @@ export default function () {
         setStep(1);
       } else {
         setAlert(null);
-        setUrls(response.url);
+        setItems(response.items);
         setStep(3);
       }
     } catch (e) {
@@ -123,14 +123,14 @@ export default function () {
                 </div>
                 {(step === 1 || step === 3) && (
                   <button
-                    onClick={fetchURLs}
+                    onClick={fetchMedia}
                     className="d-grid gap-2 col-5 mx-auto btn my-4"
                   >
                     Fetch Media
                   </button>
                 )}
                 {step === 2 && <Spinner />}
-                {step === 3 && <Media urls={urls} platform={platform} />}
+                {step === 3 && <Media items={items} platform={platform} />}
               </div>
             </div>
           </div>

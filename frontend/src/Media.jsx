@@ -1,7 +1,7 @@
 import Image from "./Image";
 import Video from "./Video";
 
-export default function ({ urls, platform }) {
+export default function ({ items, platform }) {
   return (
     <div
       style={{
@@ -10,11 +10,15 @@ export default function ({ urls, platform }) {
         justifyContent: "center",
       }}
     >
-      {urls.map((url) => {
-        const Media = url.split(".")[1] === "mp4" ? Video : Image;
-        url =
-          (PROXY ? PROXY + "/" + url + "?url=" : "") +
-          SERVER + "media/" + platform.current + "/" + url;
+      {items.map((item) => {
+        const Media = item.format === "mp4" ? Video : Image;
+        item.url =
+          (PROXY ? PROXY + "/" + item.path + "?url=" : "") +
+          SERVER +
+          "media/" +
+          platform.current +
+          "/" +
+          item.path;
 
         return (
           <div
@@ -25,12 +29,12 @@ export default function ({ urls, platform }) {
               display: "flex",
               flexDirection: "column",
             }}
-            key={url}
+            key={item.path}
           >
-            <Media url={url} />
+            <Media item={item} />
             <a
               download
-              href={url + "?download=1"}
+              href={item.url + "?download=1"}
               className="btn"
               style={{ width: "100%", marginTop: "12px" }}
             >

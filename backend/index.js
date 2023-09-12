@@ -77,12 +77,7 @@ app.post("/media/:platform", exeRemote, async (req, res) => {
   const dir = "public/media/" + platform + "/" + matched[1] + quality;
   if (fs.existsSync(dir)) {
     fs.writeFileSync(dir + "/.lastaccessed", Date.now().toString());
-    return res.json({
-      url: fs
-        .readdirSync(dir)
-        .slice(1)
-        .map((e) => matched[1] + quality + "/" + e),
-    });
+    return res.send(fs.readFileSync(dir + "/.items", "utf8"));
   }
 
   let links = await getMediaURLs[platform](
