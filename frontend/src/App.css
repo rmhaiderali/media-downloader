@@ -15,11 +15,9 @@ body {
 }
 h5 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0;
   font-weight: 500;
   line-height: 1.2;
-}
-h5 {
   font-size: 1.25rem;
 }
 input,
@@ -155,13 +153,12 @@ button {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-.my-3 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
 .my-4 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+.mt-4 {
+  margin-top: 1.5rem;
 }
 .p-3 {
   padding: 1rem;

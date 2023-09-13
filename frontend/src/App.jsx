@@ -66,14 +66,14 @@ export default function () {
             <div className="row">
               <div>
                 <h5 className="card-title text-accent text-center">
-                  Download Images & Videos
+                  Download Photos & Videos
                 </h5>
                 <p className="my-2 card-text text-accent text-center">
                   from Instagram & Threads
                 </p>
                 <input
                   type="text"
-                  className="my-3 form-control align-center"
+                  className="mt-4 form-control"
                   placeholder="URL"
                   id="url"
                   value={url}
@@ -124,7 +124,7 @@ export default function () {
                 {(step === 1 || step === 3) && (
                   <button
                     onClick={fetchMedia}
-                    className="d-grid gap-2 col-5 mx-auto btn my-4"
+                    className="d-grid gap-2 col-5 mx-auto btn"
                   >
                     Fetch Media
                   </button>

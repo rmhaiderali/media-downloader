@@ -4,6 +4,7 @@ import Video from "./Video";
 export default function ({ items, platform }) {
   return (
     <div
+      className="mt-4"
       style={{
         display: "flex",
         flexWrap: "wrap",

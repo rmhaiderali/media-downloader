@@ -11,8 +11,6 @@ export default defineConfig({
     SERVER: stringer(
       ["/", "http://localhost:3001/", "http://159.223.36.123:3001/"][0]
     ),
-    PROXY: stringer(
-      [false, "/proxy.php", "https://ueso.000webhostapp.com/proxy.php"][0]
-    ),
+    PROXY: stringer([false, "https://ueso.000webhostapp.com/proxy.php"][0]),
   },
 });
