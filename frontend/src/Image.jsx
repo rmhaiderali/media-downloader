@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
 export default function ({ item }) {
-  const blurred = useRef();
+  const blur = useRef();
 
   const size = { width: "100%", height: "100%" };
   if (item.height < item.width) delete size.height;
@@ -21,13 +21,13 @@ export default function ({ item }) {
       }}
     >
       <img
-        ref={blurred}
+        ref={blur}
         style={size}
         src={"data:image/" + item.format + ";base64," + item.blur}
       ></img>
       <img
         onLoad={(e) => {
-          blurred.current.style.display = "none";
+          blur.current.style.display = "none";
           e.target.style.removeProperty("display");
         }}
         style={Object.assign({ display: "none" }, size)}

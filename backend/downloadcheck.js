@@ -41,15 +41,20 @@ const downloader = (links, platfrom, post, res) => {
         if (extention === ".mp4") {
           items[index] = { path: post + "/" + filename, format: "mp4" };
         } else {
-          const image = sharp(buffer).resize(300).blur(30);
-          const buffer2 = await image.toBuffer();
+          const image = sharp(buffer);
           const metadata = await image.metadata();
+
+          const size = { width: 300, height: 300 };
+          if (metadata.height < metadata.width) delete size.height;
+          else if (metadata.width < metadata.height) delete size.width;
+
+          const blur = await image.resize(size).blur(30).toBuffer();
           items[index] = {
             path: post + "/" + filename,
             format: metadata.format,
             width: metadata.width,
             height: metadata.height,
-            blur: buffer2.toString("base64"),
+            blur: blur.toString("base64"),
           };
         }
         // console.log("Download Completed.");
