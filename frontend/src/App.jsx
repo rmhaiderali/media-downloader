@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Media from "./Media";
 import Alert from "./Alert";
-import "./App.css";
+import "./App.scss";
 
 export default function () {
   const regex = {
@@ -59,78 +59,76 @@ export default function () {
   return (
     <>
       <Header />
-      <div className="container main">
-        <div className="p-3">
-          {alert}
-          <div className="py-3">
-            <div className="row">
-              <div>
-                <h5 className="card-title text-accent text-center">
-                  Download Photos & Videos
-                </h5>
-                <p className="my-2 card-text text-accent text-center">
-                  from Instagram & Threads
-                </p>
-                <input
-                  type="text"
-                  className="mt-4 form-control"
-                  placeholder="URL"
-                  id="url"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                />
-
-                <div className="d-grid gap-2 col-md-5 mx-auto my-4">
-                  <span className="card-text text-accent text-center">
-                    Set media quality
-                  </span>
+      <div className="main">
+        <div className="container">
+          <div className="p-3">
+            {alert}
+            <div className="py-3">
+              <div className="row">
+                <div>
+                  <h5 className="card-title text-accent text-center">
+                    Download Photos & Videos
+                  </h5>
+                  <p className="my-2 card-text text-accent text-center">
+                    from Instagram & Threads
+                  </p>
                   <input
-                    style={{
-                      width: "auto",
-                      accentColor: "var(--theme)",
-                    }}
-                    type="range"
-                    min="1"
-                    max="3"
-                    value={quality}
-                    onChange={(e) => setQuality(e.target.value)}
+                    type="text"
+                    className="mt-4 form-control"
+                    placeholder="URL"
+                    id="url"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
                   />
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setQuality(1)}
-                    >
-                      Low
+                  <div className="d-grid gap-2 col-md-5 mx-auto my-4">
+                    <span className="card-text text-accent text-center">
+                      Set media quality
                     </span>
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setQuality(2)}
+                    <input
+                      style={{ accentColor: "var(--theme)" }}
+                      type="range"
+                      min="1"
+                      max="3"
+                      value={quality}
+                      onChange={(e) => setQuality(e.target.value)}
+                    />
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      Medium
-                    </span>
-                    <span
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setQuality(3)}
-                    >
-                      High
-                    </span>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setQuality(1)}
+                      >
+                        Low
+                      </span>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setQuality(2)}
+                      >
+                        Medium
+                      </span>
+                      <span
+                        style={{ cursor: "pointer" }}
+                        onClick={() => setQuality(3)}
+                      >
+                        High
+                      </span>
+                    </div>
                   </div>
+                  {(step === 1 || step === 3) && (
+                    <button
+                      onClick={fetchMedia}
+                      className="d-grid gap-2 col-6 col-sm-5 mx-auto btn"
+                    >
+                      Fetch Media
+                    </button>
+                  )}
+                  {step === 2 && <Spinner />}
+                  {step === 3 && <Media items={items} platform={platform} />}
                 </div>
-                {(step === 1 || step === 3) && (
-                  <button
-                    onClick={fetchMedia}
-                    className="d-grid gap-2 col-5 mx-auto btn"
-                  >
-                    Fetch Media
-                  </button>
-                )}
-                {step === 2 && <Spinner />}
-                {step === 3 && <Media items={items} platform={platform} />}
               </div>
             </div>
           </div>

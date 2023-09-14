@@ -1,8 +1,11 @@
 export default function () {
   return (
     <div
-      className="navbar bg-accent-t80"
-      style={{ borderTop: "1px solid var(--theme-t50)" }}
+      className="navbar"
+      style={{
+        backgroundColor: "var(--theme-t80)",
+        borderTop: "1px solid var(--theme-t50)",
+      }}
     >
       <div className="container-fluid" style={{ justifyContent: "center" }}>
         <div style={{ padding: "6px 10px" }}>
