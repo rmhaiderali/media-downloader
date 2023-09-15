@@ -36,9 +36,9 @@ const colorMixCSS = (finalColorRGB, t) => {
 const colorKeywordToRGB = (colorKeyword) => {
   const el = document.createElement("div");
   el.style.color = colorKeyword;
-  document.body.appendChild(el);
+  document.documentElement.appendChild(el);
   const value = window.getComputedStyle(el).color;
-  document.body.removeChild(el);
+  document.documentElement.removeChild(el);
   return value;
 };
 
