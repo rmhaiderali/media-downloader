@@ -1,9 +1,11 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
 function send_error($code, $message)
 {
     http_response_code($code);
     header("Content-Type: application/json");
-    echo json_encode(["error" => $message], JSON_UNESCAPED_SLASHES);
+    echo json_encode(["error" => $message, "error_generated_by" => "proxy"], JSON_UNESCAPED_SLASHES);
     exit;
 }
 
@@ -46,7 +48,6 @@ $responseStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 $responseContentType = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
 $responseHeaderSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 curl_close($ch);
-header("Access-Control-Allow-Origin: *");
 
 if ($responseStatusCode === 0)
     send_error(500, parse_url($_REQUEST["url"])["host"] . " can't be reached.");

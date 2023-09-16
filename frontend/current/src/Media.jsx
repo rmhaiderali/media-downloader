@@ -36,7 +36,7 @@ export default function ({ items, platform }) {
             <a
               download
               href={item.url + "?download=1"}
-              className="btn"
+              className="btn btn-outline-accent"
               style={{ width: "100%", marginTop: "12px" }}
             >
               Download
