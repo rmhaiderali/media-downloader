@@ -99,19 +99,19 @@ export default function () {
                       }}
                     >
                       <span
-                        style={{ cursor: "pointer" }}
+                        className="cursor-pointer"
                         onClick={() => setQuality(1)}
                       >
                         Low
                       </span>
                       <span
-                        style={{ cursor: "pointer" }}
+                        className="cursor-pointer"
                         onClick={() => setQuality(2)}
                       >
                         Medium
                       </span>
                       <span
-                        style={{ cursor: "pointer" }}
+                        className="cursor-pointer"
                         onClick={() => setQuality(3)}
                       >
                         High
@@ -121,7 +121,7 @@ export default function () {
                   {(step === 1 || step === 3) && (
                     <button
                       onClick={fetchMedia}
-                      className="d-grid gap-2 col-6 col-sm-5 mx-auto btn"
+                      className="d-grid gap-2 col-6 col-sm-5 mx-auto btn btn-outline-accent"
                     >
                       Fetch Media
                     </button>

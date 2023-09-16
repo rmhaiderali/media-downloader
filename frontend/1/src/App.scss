@@ -1,7 +1,13 @@
 @import "bootstrap/scss/bootstrap";
 
+@font-face {
+  font-family: "Instagram Sans";
+  src: url("/instagramsans.ttf");
+}
+
 html,
 body {
+  font-family: "Instagram Sans";
   height: 100%;
 }
 
@@ -40,24 +46,13 @@ input:-webkit-autofill:active {
   border-color: var(--theme-t50);
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 ::selection {
   color: white;
   background-color: var(--theme);
-}
-
-.text-accent {
-  color: var(--theme);
-}
-
-.btn {
-  color: var(--theme);
-  border-color: var(--theme);
-}
-
-.btn:hover {
-  color: white;
-  background-color: var(--theme);
-  border-color: var(--theme);
 }
 
 .loading {
@@ -88,4 +83,20 @@ input:-webkit-autofill:active {
   stroke-dasharray: 80;
   stroke-dashoffset: 60;
   stroke-width: 4;
+}
+
+.text-accent {
+  color: var(--theme);
+}
+
+.btn-outline-accent {
+  --bs-btn-color: var(--theme);
+  --bs-btn-border-color: var(--theme);
+  --bs-btn-hover-color: white;
+  --bs-btn-hover-bg: var(--theme);
+  --bs-btn-hover-border-color: var(--theme);
+  --bs-btn-focus-shadow-rgb: transparent;
+  --bs-btn-active-color: white;
+  --bs-btn-active-bg: var(--theme);
+  --bs-btn-active-border-color: var(--theme);
 }

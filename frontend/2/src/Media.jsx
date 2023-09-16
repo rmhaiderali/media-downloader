@@ -17,7 +17,7 @@ export default function ({ items, platform }) {
           (PROXY ? PROXY + "/" + item.path + "?url=" : "") +
           SERVER +
           "media/" +
-          platform.current +
+          platform +
           "/" +
           item.path;
 
@@ -36,7 +36,7 @@ export default function ({ items, platform }) {
             <a
               download
               href={item.url + "?download=1"}
-              className="btn"
+              className="btn btn-light"
               style={{ width: "100%", marginTop: "12px" }}
             >
               Download
