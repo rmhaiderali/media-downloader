@@ -7,6 +7,7 @@ const stringer = (target) =>
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: { target: "es6" },
   define: {
     SERVER: stringer(
       ["/", "http://localhost:3001/", "http://159.223.36.123:3001/"][0]
