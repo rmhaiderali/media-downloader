@@ -41,14 +41,16 @@ export default function ({ platform, globle }) {
   const setItems = (payload) => intercept({ type: "items", payload });
   const setStep = (payload) => intercept({ type: "step", payload });
 
+  function toaster(message, type) {
+    if (toast.isActive(message.replaceAll(" ", ""))) return;
+    toast[type ?? "info"](message, { toastId: message.replaceAll(" ", "") });
+  }
+
   const fetchMedia = async () => {
     try {
       // console.log(url);
-      if (!url.match(regex[platform])) {
-        if (!toast.isActive("invalidurl"))
-          toast.warn("Provided URL is not valid.", { toastId: "invalidurl" });
-        return;
-      }
+      if (!url.match(regex[platform]))
+        return toaster("Provided URL is not valid.", "warn");
       setStep(2);
 
       let response = await fetch(
@@ -62,7 +64,7 @@ export default function ({ platform, globle }) {
       // console.log(response);
 
       if (response.error) {
-        toast.error(response.error);
+        toaster(response.error, "error");
         setStep(1);
       } else {
         setItems(response.items);
@@ -70,15 +72,14 @@ export default function ({ platform, globle }) {
       }
     } catch (e) {
       console.error(e);
-      if (!toast.isActive("notaccessible"))
-        toast.error("API is not accessible.", { toastId: "notaccessible" });
+      toaster("API is not accessible.", "error");
       setStep(1);
     } finally {
       // setUrl("");
     }
   };
 
-  const isTrue = (boolean, value) => (boolean ? " " + value : "");
+  const conditionalClass = (boolean, value) => (boolean ? " " + value : "");
 
   return (
     <div className="download">
@@ -97,7 +98,7 @@ export default function ({ platform, globle }) {
                         <button
                           className={
                             "nav-link rounded-5" +
-                            isTrue(platform === "instagram", "active")
+                            conditionalClass(platform === "instagram", "active")
                           }
                         >
                           Instagram
@@ -112,7 +113,7 @@ export default function ({ platform, globle }) {
                         <button
                           className={
                             "nav-link rounded-5" +
-                            isTrue(platform === "threads", "active")
+                            conditionalClass(platform === "threads", "active")
                           }
                         >
                           Threads
