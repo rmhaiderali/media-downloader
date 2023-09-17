@@ -2,12 +2,18 @@
 import dotenv from "dotenv";
 dotenv.config();
 import fs from "fs";
+import cors from "cors";
 import express from "express";
 import bodyParser from "body-parser";
-import cors from "cors";
+import fallback from "express-history-api-fallback";
 import getMediaURLs from "./geturls.js";
 import downloader from "./downloadcheck.js";
 import remote from "./remote.js";
+
+import url from "url";
+import path from "path";
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
@@ -117,6 +123,10 @@ const setContentType = (req, res, next) => {
   next();
 };
 app.use(setContentType, express.static("public"));
+app.use(
+  "/experimental",
+  fallback("index.html", { root: __dirname + "/public/experimental" })
+);
 
 const PORT = process.env.PORT || 3001;
 
