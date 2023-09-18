@@ -4,21 +4,18 @@ import Form from "./Form";
 
 export default function ({ route, platforms }) {
   const globle = useRef({});
-  const conditional = (boolean, value) => (boolean ? " " + value : "");
+  const conditionalConcat = (boolean, value) => (boolean ? " " + value : "");
 
   const toggleItems = platforms.map((platform) => (
     <li className="nav-item" key={platform}>
       <Link
         to={import.meta.env.BASE_URL + platform}
-        className="text-decoration-none"
+        className={
+          "nav-link rounded-5 text-decoration-none" +
+          conditionalConcat(platform === route, "active")
+        }
       >
-        <button
-          className={
-            "nav-link rounded-5" + conditional(platform === route, "active")
-          }
-        >
-          {platform.charAt(0).toUpperCase() + platform.slice(1)}
-        </button>
+        {platform.charAt(0).toUpperCase() + platform.slice(1)}
       </Link>
     </li>
   ));
@@ -27,6 +24,8 @@ export default function ({ route, platforms }) {
     document.body.classList.add(route);
     return () => document.body.classList.remove(route);
   }, [route]);
+
+  const width = 100 / platforms.length;
 
   return (
     <div className="download">
@@ -37,8 +36,14 @@ export default function ({ route, platforms }) {
               <div>
                 <div className="d-grid gap-2 col-md-6 mx-auto mt-3 mb-4">
                   <div className="p-1 small rounded-5 shadow-sm toggle">
-                    <ul className={"nav nav-pills nav-fill " + route}>
-                      <div className="tab"></div>
+                    <ul className="nav nav-fill">
+                      <div
+                        className="slider"
+                        style={{
+                          width: width + "%",
+                          left: width * platforms.indexOf(route) + "%",
+                        }}
+                      ></div>
                       {toggleItems}
                     </ul>
                   </div>

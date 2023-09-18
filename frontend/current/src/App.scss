@@ -38,21 +38,13 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-.alert {
-  margin-bottom: 0;
-  padding: 8px;
-  color: var(--theme);
-  background-color: var(--theme-t80);
-  border-color: var(--theme-t50);
+::selection {
+  color: white;
+  background-color: var(--theme);
 }
 
 .cursor-pointer {
   cursor: pointer;
-}
-
-::selection {
-  color: white;
-  background-color: var(--theme);
 }
 
 .loading {
@@ -63,20 +55,14 @@ input:-webkit-autofill:active {
   height: 30px;
   width: 30px;
 }
-@keyframes loading {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
+
 .loading > :first-child {
   fill: none;
   opacity: 0.2;
   stroke-width: 4;
   stroke: var(--theme);
 }
+
 .loading > :last-child {
   fill: none;
   stroke: var(--theme);
@@ -85,8 +71,21 @@ input:-webkit-autofill:active {
   stroke-width: 4;
 }
 
-.text-accent {
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.alert {
+  margin-bottom: 0;
+  padding: 8px;
   color: var(--theme);
+  background-color: var(--theme-t80);
+  border-color: var(--theme-t50);
 }
 
 .btn-outline-accent {
@@ -99,4 +98,8 @@ input:-webkit-autofill:active {
   --bs-btn-active-color: white;
   --bs-btn-active-bg: var(--theme);
   --bs-btn-active-border-color: var(--theme);
+}
+
+.text-accent {
+  color: var(--theme);
 }
