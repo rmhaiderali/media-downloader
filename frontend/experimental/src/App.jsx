@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,9 +8,8 @@ import * as bootstrap from "bootstrap";
 import "./App.scss";
 
 export default function () {
-  const globle = useRef({});
-  const paths = ["instagram", "threads"];
-  const random = paths[Math.floor(Math.random() * paths.length)];
+  const platforms = ["instagram", "threads"];
+  const random = platforms[Math.floor(Math.random() * platforms.length)];
 
   return (
     <>
@@ -31,11 +29,11 @@ export default function () {
       <Header />
       <div className="main">
         <Routes>
-          {paths.map((path) => (
+          {platforms.map((platform) => (
             <Route
-              key={path}
-              path={import.meta.env.BASE_URL + path}
-              element={<Download key={path} platform={path} globle={globle} />}
+              key={platform}
+              path={import.meta.env.BASE_URL + platform}
+              element={<Download route={platform} platforms={platforms} />}
             />
           ))}
           <Route
