@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Logic from "./Logic";
+import Form from "./Form";
 
 export default function ({ route, platforms }) {
   const globle = useRef({});
@@ -52,7 +52,7 @@ export default function ({ route, platforms }) {
                 >
                   {"from " + route.charAt(0).toUpperCase() + route.slice(1)}
                 </p>
-                <Logic platform={route} globle={globle} key={route} />
+                <Form platform={route} globle={globle} key={route} />
               </div>
             </div>
           </div>
