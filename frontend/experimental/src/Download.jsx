@@ -1,19 +1,19 @@
 import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Form from "./Form";
+import "./proto/conditionalConcat";
 
 export default function ({ route, platforms }) {
   const globle = useRef({});
-  const conditionalConcat = (boolean, value) => (boolean ? " " + value : "");
 
   const toggleItems = platforms.map((platform) => (
     <li className="nav-item" key={platform}>
       <Link
         to={import.meta.env.BASE_URL + platform}
-        className={
-          "nav-link rounded-5 text-decoration-none" +
-          conditionalConcat(platform === route, "active")
-        }
+        className={"nav-link rounded-5 text-decoration-none".conditionalConcat(
+          platform === route,
+          "active"
+        )}
       >
         {platform.charAt(0).toUpperCase() + platform.slice(1)}
       </Link>
@@ -25,7 +25,7 @@ export default function ({ route, platforms }) {
     return () => document.body.classList.remove(route);
   }, [route]);
 
-  const width = 100 / platforms.length;
+  const sliderWidth = 100 / platforms.length;
 
   return (
     <div className="download">
@@ -40,8 +40,8 @@ export default function ({ route, platforms }) {
                       <div
                         className="slider"
                         style={{
-                          width: width + "%",
-                          left: width * platforms.indexOf(route) + "%",
+                          width: sliderWidth + "%",
+                          left: sliderWidth * platforms.indexOf(route) + "%",
                         }}
                       ></div>
                       {toggleItems}
