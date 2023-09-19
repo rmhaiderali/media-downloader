@@ -24,7 +24,7 @@ const allowedDomains = [
   "http://localhost:5173",
   "http://localhost:3001",
   "http://159.223.36.123:3001",
-  "https://download.cyclic.app",
+  "https://download.cyclic.cloud",
   "https://igram.ltd",
 ];
 
