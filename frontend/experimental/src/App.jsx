@@ -38,7 +38,9 @@ export default function () {
           ))}
           <Route
             path="*"
-            element={<Navigate to={import.meta.env.BASE_URL + random} />}
+            element={
+              <Navigate to={import.meta.env.BASE_URL + random} replace={true} />
+            }
           />
         </Routes>
       </div>
