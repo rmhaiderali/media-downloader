@@ -4,12 +4,7 @@ import Spinner from "./Spinner";
 import Media from "./Media";
 
 export default function ({ platform, globle }) {
-  globle.current[platform] ??= {
-    url: "",
-    quality: 2,
-    items: [],
-    step: 1,
-  };
+  globle.current[platform] ??= { url: "", quality: 2, items: [], step: 1 };
 
   const regex = {
     instagram:
