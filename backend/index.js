@@ -25,7 +25,7 @@ const allowedDomains = [
   "http://localhost:3001",
   "http://159.223.36.123:3001",
   "https://download.cyclic.cloud",
-  "https://igram.ltd",
+  // "https://igram.ltd",
 ];
 
 const regex = {
