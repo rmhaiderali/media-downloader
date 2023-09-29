@@ -38,9 +38,9 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
-::selection {
+html.focused ::selection {
   color: white;
-  background-color: var(--theme);
+  background: var(--theme);
 }
 
 .cursor-pointer {

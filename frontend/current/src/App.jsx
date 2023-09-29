@@ -7,6 +7,9 @@ import Alert from "./Alert";
 import "./App.scss";
 
 export default function () {
+  window.onfocus = () => document.documentElement.classList.add("focused");
+  window.onblur = () => document.documentElement.classList.remove("focused");
+
   const regex = {
     instagram:
       /^https?:\/\/(?:www\.)?instagram\.com\/(?:p|reels?|tv)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/,
