@@ -6,7 +6,7 @@ export default function ({ item }) {
         minHeight: "300px",
         width: "300px",
         height: "300px",
-        backgroundColor: "#ffffff80",
+        backgroundColor: "#fff8",
         borderRadius: "6px",
       }}
       controls

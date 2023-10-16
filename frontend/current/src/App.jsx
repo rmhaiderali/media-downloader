@@ -7,9 +7,6 @@ import Alert from "./Alert";
 import "./App.scss";
 
 export default function () {
-  window.onfocus = () => document.documentElement.classList.add("focused");
-  window.onblur = () => document.documentElement.classList.remove("focused");
-
   const regex = {
     instagram:
       /^https?:\/\/(?:www\.)?instagram\.com\/(?:p|reels?|tv)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/,
@@ -72,7 +69,7 @@ export default function () {
                   <h5 className="card-title text-accent text-center">
                     Download Photos & Videos
                   </h5>
-                  <p className="my-2 card-text text-accent text-center">
+                  <p className="mt-2 mb-0 card-text text-accent text-center">
                     from Instagram & Threads
                   </p>
                   <input
@@ -82,8 +79,9 @@ export default function () {
                     id="url"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
+                    onKeyDown={(event) => event.key === "Enter" && fetchMedia()}
                   />
-                  <div className="d-grid gap-2 col-md-5 mx-auto my-4">
+                  <div className="d-grid gap-2 col-md-5 mx-auto mt-4">
                     <span className="card-text text-accent text-center">
                       Set media quality
                     </span>
@@ -124,7 +122,7 @@ export default function () {
                   {(step === 1 || step === 3) && (
                     <button
                       onClick={fetchMedia}
-                      className="d-grid gap-2 col-6 col-sm-5 mx-auto btn btn-outline-accent"
+                      className="d-grid gap-2 col-6 col-sm-5 mx-auto btn btn-outline-accent mt-4"
                     >
                       Fetch Media
                     </button>

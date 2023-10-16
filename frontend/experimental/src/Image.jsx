@@ -12,7 +12,7 @@ export default function ({ item }) {
       style={{
         width: "300px",
         height: "300px",
-        backgroundColor: "#ffffff80",
+        backgroundColor: "#fff8",
         borderRadius: "6px",
         overflow: "hidden",
         display: "flex",

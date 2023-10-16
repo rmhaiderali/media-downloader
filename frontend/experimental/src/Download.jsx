@@ -52,7 +52,7 @@ export default function ({ route, platforms }) {
                   Download Photos & Videos
                 </h3>
                 <p
-                  className="my-2 card-text text-white text-center"
+                  className="mt-2 mb-0 card-text text-white text-center"
                   style={{ fontSize: "20px" }}
                 >
                   {"from " + route.charAt(0).toUpperCase() + route.slice(1)}

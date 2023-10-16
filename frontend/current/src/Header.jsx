@@ -3,7 +3,7 @@ export default function () {
     <div
       className="navbar"
       style={{
-        backgroundColor: "var(--theme-t80)",
+        background: "var(--theme-t80)",
         borderBottom: "1px solid var(--theme-t50)",
       }}
     >

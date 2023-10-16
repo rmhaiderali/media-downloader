@@ -8,3 +8,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <App />
   </React.StrictMode>
 );
+
+window.onfocus = () => document.documentElement.classList.add("focused");
+window.onblur = () => document.documentElement.classList.remove("focused");

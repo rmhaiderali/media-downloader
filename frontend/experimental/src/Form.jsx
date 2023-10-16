@@ -1,10 +1,10 @@
-import { useReducer } from "react";
+import { useReducer, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import Spinner from "./Spinner";
 import Media from "./Media";
 
 export default function ({ platform, globle }) {
-  globle.current[platform] ??= { url: "", quality: 2, items: [], step: 1 };
+  globle.current[platform] ??= { url: "", quality: 1, items: [], step: 1 };
 
   const regex = {
     instagram:
@@ -36,6 +36,14 @@ export default function ({ platform, globle }) {
     toast[type ?? "info"](message, { toastId: message.replaceAll(" ", "") });
   }
 
+  const range = useRef(null)
+
+  useEffect(() => {
+    const progress = (range.current.value / range.current.max) * 100
+    // prettier-ignore
+    range.current.style.background = "linear-gradient(to right, #fff " + progress + "%, #fff8 " + progress + "%)"
+  }, [quality])
+
   const fetchMedia = async () => {
     try {
       if (!url.match(regex[platform]))
@@ -47,7 +55,7 @@ export default function ({ platform, globle }) {
         (PROXY ? PROXY + "/?url=" : "") + SERVER + "media/" + platform,
         {
           method: "POST",
-          body: JSON.stringify({ url, quality }),
+          body: JSON.stringify({ url, quality: quality + 1 }),
         }
       );
       response = await response.json();
@@ -79,17 +87,18 @@ export default function ({ platform, globle }) {
         value={url}
         onChange={(e) => setUrl(e.target.value)}
       />
-      <div className="d-grid gap-2 col-md-5 mx-auto my-4">
+      <div className="d-grid gap-2 col-md-5 mx-auto mt-4">
         <span className="card-text text-white text-center">
           Set media quality
         </span>
         <input
-          style={{ accentColor: "white", colorScheme: "dark" }}
+          ref={range}
           type="range"
-          min="1"
-          max="3"
+          min="0"
+          max="2"
           value={quality}
           onChange={(e) => setQuality(e.target.value)}
+          onKeyDown={(event) => event.key === "Enter" && fetchMedia()}
         />
         <div
           style={{
@@ -99,19 +108,19 @@ export default function ({ platform, globle }) {
         >
           <span
             className="text-white cursor-pointer"
-            onClick={() => setQuality(1)}
+            onClick={() => setQuality(0)}
           >
             Low
           </span>
           <span
             className="text-white cursor-pointer"
-            onClick={() => setQuality(2)}
+            onClick={() => setQuality(1)}
           >
             Medium
           </span>
           <span
             className="text-white cursor-pointer"
-            onClick={() => setQuality(3)}
+            onClick={() => setQuality(2)}
           >
             High
           </span>
@@ -120,7 +129,7 @@ export default function ({ platform, globle }) {
       {(step === 1 || step === 3) && (
         <button
           onClick={fetchMedia}
-          className="d-grid gap-2 col-6 col-sm-5 mx-auto btn btn-light"
+          className="d-grid gap-2 col-6 col-sm-5 mx-auto btn btn-light mt-4"
         >
           Fetch Media
         </button>
