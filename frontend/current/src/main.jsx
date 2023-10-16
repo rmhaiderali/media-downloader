@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App.jsx"
-import "./ddm/themeColors.js"
+import "./ddm/theme.colors.js"
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
