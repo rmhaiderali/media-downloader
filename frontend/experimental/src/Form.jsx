@@ -47,7 +47,7 @@ export default function ({ platform, globle }) {
   const fetchMedia = async () => {
     try {
       if (!url.match(regex[platform]))
-        // console.log(url);
+        // console.log(url)
         return toaster("Provided URL is not valid.", "warn")
       setStep(2)
 
@@ -59,7 +59,7 @@ export default function ({ platform, globle }) {
         }
       )
       response = await response.json()
-      // console.log(response);
+      // console.log(response)
 
       if (response.error) {
         toaster(response.error, "error")
@@ -73,7 +73,7 @@ export default function ({ platform, globle }) {
       toaster("API is not accessible.", "error")
       setStep(1)
     } finally {
-      // setUrl("");
+      // setUrl("")
     }
   }
 

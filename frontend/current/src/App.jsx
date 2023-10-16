@@ -23,7 +23,7 @@ export default function () {
   const fetchMedia = async () => {
     setAlert(null)
     try {
-      // console.log(url);
+      // console.log(url)
       if (url.match(regex.instagram)) platform.current = "instagram"
       else if (url.match(regex.threads)) platform.current = "threads"
       else return setAlert(<Alert message="Provided URL is not valid." />)
@@ -37,7 +37,7 @@ export default function () {
         }
       )
       response = await response.json()
-      // console.log(response);
+      // console.log(response)
 
       if (response.error) {
         setAlert(<Alert message={response.error} />)
@@ -52,7 +52,7 @@ export default function () {
       setAlert(<Alert message="API is not accessible." />)
       setStep(1)
     } finally {
-      // setUrl("");
+      // setUrl("")
     }
   }
 
