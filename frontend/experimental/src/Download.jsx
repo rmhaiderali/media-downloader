@@ -9,7 +9,7 @@ export default function ({ route, platforms }) {
   const toggleItems = platforms.map((platform) => (
     <li className="nav-item" key={platform}>
       <Link
-        to={import.meta.env.BASE_URL + platform}
+        to={BASE + platform}
         className={"nav-link rounded-5 text-decoration-none".conditionalConcat(
           platform === route,
           "active"

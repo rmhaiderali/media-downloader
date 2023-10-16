@@ -32,15 +32,13 @@ export default function () {
           {platforms.map((platform) => (
             <Route
               key={platform}
-              path={import.meta.env.BASE_URL + platform}
+              path={BASE + platform}
               element={<Download route={platform} platforms={platforms} />}
             />
           ))}
           <Route
             path="*"
-            element={
-              <Navigate to={import.meta.env.BASE_URL + random} replace={true} />
-            }
+            element={<Navigate to={BASE + random} replace={true} />}
           />
         </Routes>
       </div>
