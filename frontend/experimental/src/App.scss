@@ -293,7 +293,7 @@ input:-webkit-autofill:active {
   border-radius: 50%;
 }
 
-input[type=range] {
+input[type="range"] {
   @include noappearence;
   height: 6px;
   margin: 5px 0;

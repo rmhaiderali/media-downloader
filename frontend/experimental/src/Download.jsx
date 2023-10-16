@@ -1,10 +1,10 @@
-import { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Form from "./Form";
-import "./proto/conditionalConcat";
+import { useRef, useEffect } from "react"
+import { Link } from "react-router-dom"
+import Form from "./Form"
+import "./proto/conditionalConcat"
 
 export default function ({ route, platforms }) {
-  const globle = useRef({});
+  const globle = useRef({})
 
   const toggleItems = platforms.map((platform) => (
     <li className="nav-item" key={platform}>
@@ -18,14 +18,14 @@ export default function ({ route, platforms }) {
         {platform.charAt(0).toUpperCase() + platform.slice(1)}
       </Link>
     </li>
-  ));
+  ))
 
   useEffect(() => {
-    document.body.classList.add(route);
-    return () => document.body.classList.remove(route);
-  }, [route]);
+    document.body.classList.add(route)
+    return () => document.body.classList.remove(route)
+  }, [route])
 
-  const sliderWidth = 100 / platforms.length;
+  const sliderWidth = 100 / platforms.length
 
   return (
     <div className="download">
@@ -41,7 +41,7 @@ export default function ({ route, platforms }) {
                         className="slider"
                         style={{
                           width: sliderWidth + "%",
-                          left: sliderWidth * platforms.indexOf(route) + "%",
+                          left: sliderWidth * platforms.indexOf(route) + "%"
                         }}
                       ></div>
                       {toggleItems}
@@ -64,5 +64,5 @@ export default function ({ route, platforms }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
