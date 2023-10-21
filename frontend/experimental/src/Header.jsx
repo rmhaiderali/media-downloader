@@ -6,7 +6,7 @@ export default function () {
           <a
             className="text-black"
             style={{ fontSize: "20px", textDecoration: "none" }}
-            href="../"
+            href={ROOT}
           >
             Media Downloader
           </a>
