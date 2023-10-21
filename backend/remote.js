@@ -5,7 +5,7 @@ import "./proto/style.js"
 import "./proto/format.js"
 
 const response = await fetch(
-  "https://ueso.000webhostapp.com/functions/media-downloader/{0}.js".format(
+  "https://ueso.000webhostapp.com/functions/media_downloader/{0}.js".format(
     process.env.FUN_KEY
   )
 )
