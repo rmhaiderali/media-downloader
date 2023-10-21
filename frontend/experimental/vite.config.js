@@ -5,7 +5,7 @@ const stringer = (target) =>
   typeof target === "string" ? "\"" + target + "\"" : target
 
 const root = ["/", "/media_downloader/"][0]
-const proxy = [false, "https://ueso.000webhostapp.com" + root + "proxy.php"][0]
+const proxy = [false, "https://ueso.000webhostapp.com/media_downloader/proxy.php"][0]
 const server = ["/", "http://localhost:3001/", "http://159.223.36.123:3001/"][0]
 const base = root + "experimental/"
 
