@@ -12,7 +12,7 @@ export default function () {
           <a
             className="text-accent"
             style={{ fontSize: "20px", textDecoration: "none" }}
-            href="/experimental"
+            href={BASE + "experimental"}
           >
             Media Downloader
           </a>
