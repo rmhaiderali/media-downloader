@@ -3,8 +3,8 @@ import { toast } from "react-toastify"
 import Spinner from "./Spinner"
 import Media from "./Media"
 
-export default function ({ platform, globle }) {
-  globle.current[platform] ??= { url: "", quality: 1, items: [], step: 1 }
+export default function ({ platform, global }) {
+  global.current[platform] ??= { url: "", quality: 1, items: [], step: 1 }
 
   const regex = {
     instagram:
@@ -17,13 +17,13 @@ export default function ({ platform, globle }) {
     return { ...state, [action.type]: action.payload }
   }
 
-  const [state, dispatch] = useReducer(reducer, globle.current[platform])
+  const [state, dispatch] = useReducer(reducer, global.current[platform])
 
   const { url, quality, items, step } = state
 
   function intercept(action) {
     dispatch(action)
-    globle.current[platform][action.type] = action.payload
+    global.current[platform][action.type] = action.payload
   }
 
   const setUrl = (payload) => intercept({ type: "url", payload })

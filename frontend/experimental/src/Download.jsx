@@ -1,18 +1,18 @@
 import { useRef, useEffect } from "react"
 import { Link } from "react-router-dom"
+import classNames from "classnames"
 import Form from "./Form"
-import "./proto/conditionalConcat"
 
 export default function ({ route, platforms }) {
-  const globle = useRef({})
+  const global = useRef({})
 
   const toggleItems = platforms.map((platform) => (
-    <li className="nav-item" key={platform}>
+    <li className="z-1 w-100" key={platform}>
       <Link
         to={BASE + platform}
-        className={"nav-link rounded-5 text-decoration-none".conditionalConcat(
-          platform === route,
-          "active"
+        className={classNames(
+          "nav-link rounded-5 text-decoration-none text-center",
+          platform === route && "active"
         )}
       >
         {platform.charAt(0).toUpperCase() + platform.slice(1)}
@@ -25,7 +25,8 @@ export default function ({ route, platforms }) {
     return () => document.body.classList.remove(route)
   }, [route])
 
-  const sliderWidth = 100 / platforms.length
+  const itemWidth = 100 / platforms.length
+  const sliderLeft = itemWidth * platforms.indexOf(route)
 
   return (
     <div className="download">
@@ -40,8 +41,8 @@ export default function ({ route, platforms }) {
                       <div
                         className="slider"
                         style={{
-                          width: sliderWidth + "%",
-                          left: sliderWidth * platforms.indexOf(route) + "%"
+                          left: sliderLeft + "%",
+                          width: itemWidth + "%"
                         }}
                       ></div>
                       {toggleItems}
@@ -57,7 +58,7 @@ export default function ({ route, platforms }) {
                 >
                   {"from " + route.charAt(0).toUpperCase() + route.slice(1)}
                 </p>
-                <Form platform={route} globle={globle} key={route} />
+                <Form platform={route} global={global} key={route} />
               </div>
             </div>
           </div>

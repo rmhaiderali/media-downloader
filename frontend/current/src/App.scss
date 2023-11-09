@@ -5,6 +5,10 @@
   src: url("/instagramsans.ttf");
 }
 
+:focus-visible {
+  outline: none;
+}
+
 html,
 body {
   font-family: "Instagram Sans";

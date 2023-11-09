@@ -5,6 +5,14 @@
   src: url("/instagramsans.ttf");
 }
 
+:focus-visible {
+  outline: none;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
 html,
 body {
   font-family: "Instagram Sans";
@@ -29,6 +37,10 @@ body {
 .form-control:focus {
   border-color: transparent;
   box-shadow: 0 0 0 0.25rem #ffffff59;
+}
+
+.nav-link:focus-visible {
+  box-shadow: none;
 }
 
 input:-webkit-autofill,
