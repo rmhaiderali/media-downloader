@@ -1,6 +1,5 @@
 "use strict"
-import dotenv from "dotenv"
-dotenv.config()
+import "dotenv/config.js"
 import "./proto/style.js"
 import "./proto/format.js"
 

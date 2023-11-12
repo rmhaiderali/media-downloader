@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate, Outlet } from "react-router-dom"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Header from "./Header"
@@ -32,13 +32,15 @@ export default function () {
           {platforms.map((platform) => (
             <Route
               key={platform}
-              path={BASE + platform}
-              element={<Download route={platform} platforms={platforms} />}
+              path={BASE + "experimental/" + platform}
+              element={<Download platform={platform} platforms={platforms} />}
             />
           ))}
           <Route
             path="*"
-            element={<Navigate to={BASE + random} replace={true} />}
+            element={
+              <Navigate to={BASE + "experimental/" + random} replace={true} />
+            }
           />
         </Routes>
       </div>

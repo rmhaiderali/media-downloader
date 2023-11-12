@@ -1,19 +1,13 @@
 "use strict"
-import dotenv from "dotenv"
-dotenv.config()
+import "dotenv/config.js"
 import fs from "fs"
 import cors from "cors"
 import express from "express"
+import ViteExpress from "vite-express"
 import bodyParser from "body-parser"
-import fallback from "express-history-api-fallback"
 import getMediaURLs from "./geturls.js"
 import downloader from "./downloadcheck.js"
 import remote from "./remote.js"
-
-import url from "url"
-import path from "path"
-const __filename = url.fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 const app = express()
 app.use(cors())
@@ -24,7 +18,7 @@ const allowedDomains = [
   "http://localhost:5173",
   "http://localhost:3001",
   "http://159.223.36.123:3001",
-  "https://download.cyclic.cloud",
+  "https://download.cyclic.cloud"
   // "https://igram.ltd"
 ]
 
@@ -79,7 +73,7 @@ app.post("/media/:platform", exeRemote, async (req, res) => {
       error: "Provided URL is not a valid " + platform[0].toUpperCase() + platform.slice(1) + " URL."
     })
 
-  const dir = "public/media/" + platform + "/" + matched[1] + quality
+  const dir = "dist/media/" + platform + "/" + matched[1] + quality
   if (fs.existsSync(dir)) {
     fs.writeFileSync(dir + "/.lastaccessed", Date.now().toString())
     return res.send(fs.readFileSync(dir + "/.items", "utf8"))
@@ -121,12 +115,12 @@ const setContentType = (req, res, next) => {
     res.set("Content-Type", "application/octet-stream")
   next()
 }
-app.use(setContentType, express.static("public"))
-app.use(
-  "/experimental",
-  fallback("index.html", { root: __dirname + "/public/experimental" })
-)
+app.use(setContentType)
 
 const PORT = process.env.PORT || 3001
 
-app.listen(PORT, () => console.log("listening on " + PORT))
+const server = app.listen(PORT, () => console.log("listening on port " + PORT))
+
+ViteExpress.config({ mode: process.env.NODE_ENV, ignoreBase: false })
+
+ViteExpress.bind(app, server)

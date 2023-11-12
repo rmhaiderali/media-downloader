@@ -9,10 +9,6 @@
   outline: none;
 }
 
-.z-1 {
-  z-index: 1;
-}
-
 html,
 body {
   font-family: "Instagram Sans";
@@ -113,8 +109,8 @@ input:-webkit-autofill:active {
     transition: color 400ms;
   }
   .nav-link {
+    width: 50%;
     color: white;
-    min-width: 90px;
     transition: color 600ms;
     &:hover {
       color: white;

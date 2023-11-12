@@ -1,6 +1,5 @@
 "use strict"
-import dotenv from "dotenv"
-dotenv.config()
+import "dotenv/config.js"
 import axios from "axios"
 import "./proto/style.js"
 

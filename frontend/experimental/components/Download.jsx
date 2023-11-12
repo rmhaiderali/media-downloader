@@ -3,30 +3,29 @@ import { Link } from "react-router-dom"
 import classNames from "classnames"
 import Form from "./Form"
 
-export default function ({ route, platforms }) {
+export default function ({ platform, platforms }) {
   const global = useRef({})
 
-  const toggleItems = platforms.map((platform) => (
-    <li className="z-1 w-100" key={platform}>
-      <Link
-        to={BASE + platform}
-        className={classNames(
-          "nav-link rounded-5 text-decoration-none text-center",
-          platform === route && "active"
-        )}
-      >
-        {platform.charAt(0).toUpperCase() + platform.slice(1)}
-      </Link>
-    </li>
+  const toggleItems = platforms.map((p) => (
+    <Link
+      key={p}
+      to={BASE + "experimental/" + p}
+      className={classNames(
+        "nav-link rounded-5 text-decoration-none text-center z-1",
+        p === platform && "active"
+      )}
+    >
+      {p.charAt(0).toUpperCase() + p.slice(1)}
+    </Link>
   ))
 
   useEffect(() => {
-    document.body.classList.add(route)
-    return () => document.body.classList.remove(route)
-  }, [route])
+    document.body.classList.add(platform)
+    return () => document.body.classList.remove(platform)
+  }, [platform])
 
   const itemWidth = 100 / platforms.length
-  const sliderLeft = itemWidth * platforms.indexOf(route)
+  const sliderLeft = itemWidth * platforms.indexOf(platform)
 
   return (
     <div className="download">
@@ -56,9 +55,11 @@ export default function ({ route, platforms }) {
                   className="mt-2 mb-0 card-text text-white text-center"
                   style={{ fontSize: "20px" }}
                 >
-                  {"from " + route.charAt(0).toUpperCase() + route.slice(1)}
+                  {"from " +
+                    platform.charAt(0).toUpperCase() +
+                    platform.slice(1)}
                 </p>
-                <Form platform={route} global={global} key={route} />
+                <Form platform={platform} global={global} key={platform} />
               </div>
             </div>
           </div>

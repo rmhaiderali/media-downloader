@@ -6,7 +6,7 @@ import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"
 
 const downloader = (links, platfrom, post, res) => {
-  const postDirectory = "public/media/" + platfrom + "/" + post + "/"
+  const postDirectory = "dist/media/" + platfrom + "/" + post + "/"
 
   let changeHandler = {
     set: function (target, property, value, receiver) {
@@ -67,11 +67,11 @@ const interval = 10 * 60 * 1000
 setInterval(() => {
   // console.log(new Date())
   const time = Date.now() - interval
-  fs.readdirSync("public/media").forEach((platform) =>
-    fs.readdirSync("public/media" + "/" + platform).forEach((post) => {
+  fs.readdirSync("dist/media").forEach((platform) =>
+    fs.readdirSync("dist/media" + "/" + platform).forEach((post) => {
       // prettier-ignore
-      if (post !== ".gitkeep" && Number(fs.readFileSync("public/media/" + platform + "/"+ post + "/.lastaccessed", "utf8")) < time)
-      fs.rmSync("public/media/" + platform + "/"+ post, { recursive: true })
+      if (post !== ".gitkeep" && Number(fs.readFileSync("dist/media/" + platform + "/"+ post + "/.lastaccessed", "utf8")) < time)
+      fs.rmSync("dist/media/" + platform + "/"+ post, { recursive: true })
     })
   )
 }, interval)
