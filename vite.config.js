@@ -1,20 +1,19 @@
-import "dotenv/config.js"
 import { defineConfig } from "vite"
 import react from "@vitejs/plugin-react"
 
 const stringer = (target) =>
-  typeof target === "string" ? '"' + target + '"' : target
+  typeof target === "string" ? "\"" + target + "\"" : target
 
-const base = process.env.BASE || ["/", "/media_downloader/"][0]
-const proxy = process.env.PROXY || [false, "https://example.com/proxy.php"][0]
-const server = process.env.SERVER || ["/", "https://example.com/"][0]
+const base = ["/", "/media_downloader/"][0]
+const proxy = [false, "https://example.com/proxy.php"][0]
+const server = ["/", "https://example.com/"][0]
 
 // https://vitejs.dev/config/
 export default defineConfig({
   base,
+  plugins: [react()],
   root: "./frontend",
   publicDir: "../public",
-  plugins: [react()],
   build: {
     target: "es6",
     outDir: "../dist",
