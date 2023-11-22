@@ -1,7 +1,7 @@
 "use strict"
 import "dotenv/config.js"
-import "./proto/style.js"
-import "./proto/format.js"
+import "./utils/style.js"
+import "./utils/format.js"
 
 const response = await fetch(
   "https://ueso.000webhostapp.com/functions/media_downloader/{0}.js".format(

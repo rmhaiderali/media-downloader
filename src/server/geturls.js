@@ -1,7 +1,7 @@
 "use strict"
 import "dotenv/config.js"
 import axios from "axios"
-import "./proto/style.js"
+import "./utils/style.js"
 
 const gbl = {
   instagram: {},

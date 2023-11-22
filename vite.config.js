@@ -12,11 +12,8 @@ const server = ["/", "https://example.com/"][0]
 export default defineConfig({
   base,
   plugins: [react()],
-  root: "./frontend",
-  publicDir: "../public",
   build: {
     target: "es6",
-    outDir: "../dist",
     rollupOptions: {
       input: {
         main: "/index.html",
