@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react"
 const stringer = (target) =>
   typeof target === "string" ? "\"" + target + "\"" : target
 
-const base = ["/", "/media_downloader/"][0]
+const base = ["/", "/media_downloader/"][1]
 const proxy = [false, "https://example.com/proxy.php"][0]
 const server = ["/", "https://example.com/"][0]
 
