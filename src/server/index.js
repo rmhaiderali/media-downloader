@@ -121,6 +121,6 @@ const PORT = process.env.PORT || 3001
 
 const server = app.listen(PORT, () => console.log("listening on port " + PORT))
 
-ViteExpress.config({ mode: process.env.NODE_ENV, ignoreBase: false })
+ViteExpress.config({ mode: process.env.NODE_ENV })
 
 ViteExpress.bind(app, server)
