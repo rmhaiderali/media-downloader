@@ -15,7 +15,7 @@ export default defineConfig({
   build: {
     target: "es6",
     rollupOptions: {
-      input: ["/index2.html", "/experimental/index.html"]
+      input: ["/index.html", "/experimental/index.html"]
     }
   },
   define: {
