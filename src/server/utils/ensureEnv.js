@@ -1,6 +1,7 @@
 import chalk from "chalk";
 
 const envs = [
+  "LOG", // Y/N
   "CRON", // Y/N
   "REMOTE_FUN", // Y/N
   "REMOTE_FUN_KEY",

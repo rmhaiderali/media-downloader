@@ -63,7 +63,7 @@ async function main(req, res) {
   fs.mkdirSync(dir);
   fs.writeFileSync(dir + "/.lastaccessed", Date.now().toString());
 
-  downloadItems(links, platform, matched[1] + quality, res);
+  downloadItems(links, platform, matched[1] + quality, req, res);
 }
 
 export { main };

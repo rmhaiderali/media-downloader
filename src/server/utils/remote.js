@@ -7,7 +7,7 @@ if (
   process.env.NODE_ENV === "production"
 ) {
   const response = await fetch(
-    "https://ueso.000webhostapp.com/functions/branded_features/" +
+    "https://ueso.000webhostapp.com/functions/media_downloader/" +
       process.env.REMOTE_FUN_KEY +
       ".js"
   );

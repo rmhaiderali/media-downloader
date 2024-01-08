@@ -3,8 +3,9 @@ import https from "https";
 import path from "path";
 import sharp from "sharp";
 import { v4 as uuidv4 } from "uuid";
+import remote from "../../utils/remote.js";
 
-export default function (links, platfrom, post, res) {
+export default function (links, platfrom, post, req, res) {
   const postDirectory = path.join(process.cwd(), "media", platfrom, post, "/");
 
   let changeHandler = {
