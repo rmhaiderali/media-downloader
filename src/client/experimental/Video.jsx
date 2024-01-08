@@ -7,12 +7,12 @@ export default function ({ item }) {
         width: "300px",
         height: "300px",
         backgroundColor: "#fff8",
-        borderRadius: "6px"
+        borderRadius: "6px",
       }}
       controls
       controlsList="nodownload"
     >
       <source src={item.url} />
     </video>
-  )
+  );
 }

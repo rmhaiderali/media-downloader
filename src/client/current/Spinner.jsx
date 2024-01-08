@@ -8,5 +8,5 @@ export default function () {
         <circle cx="16" cy="16" r="14"></circle>
       </svg>
     </div>
-  )
+  );
 }

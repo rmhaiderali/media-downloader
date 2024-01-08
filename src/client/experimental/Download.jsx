@@ -1,10 +1,10 @@
-import { useRef, useEffect } from "react"
-import { Link } from "react-router-dom"
-import classNames from "classnames"
-import Form from "./Form"
+import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
+import Form from "./Form";
 
 export default function ({ platform, platforms }) {
-  const global = useRef({})
+  const global = useRef({});
 
   const toggleItems = platforms.map((p) => (
     <Link
@@ -17,15 +17,15 @@ export default function ({ platform, platforms }) {
     >
       {p.charAt(0).toUpperCase() + p.slice(1)}
     </Link>
-  ))
+  ));
 
   useEffect(() => {
-    document.body.classList.add(platform)
-    return () => document.body.classList.remove(platform)
-  }, [platform])
+    document.body.classList.add(platform);
+    return () => document.body.classList.remove(platform);
+  }, [platform]);
 
-  const itemWidth = 100 / platforms.length
-  const sliderLeft = itemWidth * platforms.indexOf(platform)
+  const itemWidth = 100 / platforms.length;
+  const sliderLeft = itemWidth * platforms.indexOf(platform);
 
   return (
     <div className="download">
@@ -41,7 +41,7 @@ export default function ({ platform, platforms }) {
                         className="slider"
                         style={{
                           left: sliderLeft + "%",
-                          width: itemWidth + "%"
+                          width: itemWidth + "%",
                         }}
                       ></div>
                       {toggleItems}
@@ -66,5 +66,5 @@ export default function ({ platform, platforms }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

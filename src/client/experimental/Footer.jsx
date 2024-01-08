@@ -1,6 +1,6 @@
 export default () => {
   function scrollToTop() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
   }
 
   return (
@@ -74,5 +74,5 @@ export default () => {
       </ul>
       <p>{"© " + new Date().getFullYear() + " All Rights Reserved"}</p>
     </footer>
-  )
-}
+  );
+};

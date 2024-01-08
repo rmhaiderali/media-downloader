@@ -1,8 +1,8 @@
-import express from "express"
-import { main } from "../controllers/media.controllers.js"
+import express from "express";
+import { main } from "../controllers/media.controllers.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/:platform", main)
+router.post("/:platform", main);
 
-export default router
+export default router;

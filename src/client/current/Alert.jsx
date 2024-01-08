@@ -3,5 +3,5 @@ export default function ({ message }) {
     <div className="py-3">
       <div className="alert rounded-2 text-accent text-center">{message}</div>
     </div>
-  )
+  );
 }

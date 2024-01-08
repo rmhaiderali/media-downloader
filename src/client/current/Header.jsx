@@ -4,7 +4,7 @@ export default function () {
       className="navbar"
       style={{
         background: "var(--theme-t80)",
-        borderBottom: "1px solid var(--theme-t50)"
+        borderBottom: "1px solid var(--theme-t50)",
       }}
     >
       <div className="container-fluid justify-content-start">
@@ -19,5 +19,5 @@ export default function () {
         </div>
       </div>
     </div>
-  )
+  );
 }

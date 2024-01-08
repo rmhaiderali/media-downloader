@@ -1,15 +1,15 @@
-import { Routes, Route, Navigate } from "react-router-dom"
-import { ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
-import Header from "./Header"
-import Footer from "./Footer"
-import Download from "./Download"
-import * as bootstrap from "bootstrap"
-import "./App.scss"
+import { Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Header from "./Header";
+import Footer from "./Footer";
+import Download from "./Download";
+import * as bootstrap from "bootstrap";
+import "./App.scss";
 
 export default function () {
-  const platforms = ["instagram", "threads"]
-  const random = platforms[Math.floor(Math.random() * platforms.length)]
+  const platforms = ["instagram", "threads"];
+  const random = platforms[Math.floor(Math.random() * platforms.length)];
 
   return (
     <>
@@ -46,5 +46,5 @@ export default function () {
       </div>
       <Footer />
     </>
-  )
+  );
 }

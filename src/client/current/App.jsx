@@ -1,33 +1,33 @@
-import { useState, useRef } from "react"
-import Spinner from "./Spinner"
-import Header from "./Header"
-import Footer from "./Footer"
-import Media from "./Media"
-import Alert from "./Alert"
-import "./App.scss"
+import { useState, useRef } from "react";
+import Spinner from "./Spinner";
+import Header from "./Header";
+import Footer from "./Footer";
+import Media from "./Media";
+import Alert from "./Alert";
+import "./App.scss";
 
 export default function () {
   const regex = {
     instagram:
       /^https?:\/\/(?:www\.)?instagram\.com\/(?:p|reels?|tv)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/,
     threads:
-      /^https?:\/\/(?:www\.)?threads\.net\/(?:t|@?[a-z0-9._]{1,30}\/post)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/
-  }
-  const platform = useRef()
-  const [url, setUrl] = useState("")
-  const [quality, setQuality] = useState(2)
-  const [items, setItems] = useState([])
-  const [step, setStep] = useState(1)
-  const [alert, setAlert] = useState(null)
+      /^https?:\/\/(?:www\.)?threads\.net\/(?:t|@?[a-z0-9._]{1,30}\/post)\/[a-zA-Z0-9_-]{11}\/?(?:\?.*)?$/,
+  };
+  const platform = useRef();
+  const [url, setUrl] = useState("");
+  const [quality, setQuality] = useState(2);
+  const [items, setItems] = useState([]);
+  const [step, setStep] = useState(1);
+  const [alert, setAlert] = useState(null);
 
   const fetchMedia = async () => {
-    setAlert(null)
+    setAlert(null);
     try {
       // console.log(url)
-      if (url.match(regex.instagram)) platform.current = "instagram"
-      else if (url.match(regex.threads)) platform.current = "threads"
-      else return setAlert(<Alert message="Provided URL is not valid." />)
-      setStep(2)
+      if (url.match(regex.instagram)) platform.current = "instagram";
+      else if (url.match(regex.threads)) platform.current = "threads";
+      else return setAlert(<Alert message="Provided URL is not valid." />);
+      setStep(2);
 
       let response = await fetch(
         (PROXY ? PROXY + "/?url=" : "") +
@@ -36,28 +36,28 @@ export default function () {
           platform.current,
         {
           method: "POST",
-          body: JSON.stringify({ url, quality })
+          body: JSON.stringify({ url, quality }),
         }
-      )
-      response = await response.json()
+      );
+      response = await response.json();
       // console.log(response)
 
       if (response.error) {
-        setAlert(<Alert message={response.error} />)
-        setStep(1)
+        setAlert(<Alert message={response.error} />);
+        setStep(1);
       } else {
-        setAlert(null)
-        setItems(response.items)
-        setStep(3)
+        setAlert(null);
+        setItems(response.items);
+        setStep(3);
       }
     } catch (e) {
-      console.error(e)
-      setAlert(<Alert message="API is not accessible." />)
-      setStep(1)
+      console.error(e);
+      setAlert(<Alert message="API is not accessible." />);
+      setStep(1);
     } finally {
       // setUrl("")
     }
-  }
+  };
 
   return (
     <>
@@ -99,7 +99,7 @@ export default function () {
                     <div
                       style={{
                         display: "flex",
-                        justifyContent: "space-between"
+                        justifyContent: "space-between",
                       }}
                     >
                       <span
@@ -140,5 +140,5 @@ export default function () {
       </div>
       <Footer />
     </>
-  )
+  );
 }

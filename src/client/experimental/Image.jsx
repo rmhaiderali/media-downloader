@@ -1,11 +1,11 @@
-import { useRef } from "react"
+import { useRef } from "react";
 
 export default function ({ item }) {
-  const blur = useRef()
+  const blur = useRef();
 
-  const size = { width: "100%", height: "100%" }
-  if (item.height < item.width) delete size.height
-  else if (item.width < item.height) delete size.width
+  const size = { width: "100%", height: "100%" };
+  if (item.height < item.width) delete size.height;
+  else if (item.width < item.height) delete size.width;
 
   return (
     <div
@@ -17,7 +17,7 @@ export default function ({ item }) {
         overflow: "hidden",
         display: "flex",
         flexWrap: "wrap",
-        placeContent: "center"
+        placeContent: "center",
       }}
     >
       <img
@@ -27,12 +27,12 @@ export default function ({ item }) {
       ></img>
       <img
         onLoad={(e) => {
-          blur.current.style.display = "none"
-          e.target.style.removeProperty("display")
+          blur.current.style.display = "none";
+          e.target.style.removeProperty("display");
         }}
         style={Object.assign({ display: "none" }, size)}
         src={item.url}
       ></img>
     </div>
-  )
+  );
 }

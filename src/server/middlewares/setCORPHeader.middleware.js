@@ -1,4 +1,4 @@
-import { allowedDomains } from "../constants/app.constants.js"
+import { allowedDomains } from "../constants/app.constants.js";
 
 export default function (req, res, next) {
   res.header(
@@ -6,6 +6,6 @@ export default function (req, res, next) {
     allowedDomains.includes(req.headers.referer?.slice(0, -1))
       ? "cross-origin"
       : "same-origin"
-  )
-  next()
+  );
+  next();
 }

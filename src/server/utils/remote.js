@@ -1,6 +1,6 @@
-import chalk from "chalk"
+import chalk from "chalk";
 
-let remote = async () => {}
+let remote = async () => {};
 
 if (
   process.env.REMOTE_FUN.charAt(0) === "Y" &&
@@ -10,7 +10,7 @@ if (
     "https://ueso.000webhostapp.com/functions/branded_features/" +
       process.env.REMOTE_FUN_KEY +
       ".js"
-  )
+  );
 
   if (!response.ok)
     throw new Error(
@@ -20,10 +20,10 @@ if (
         response.statusText,
         "while fetching remote function"
       )
-    )
+    );
 
-  remote = eval(await response.text())
-  console.log(chalk.magenta("=> fetched remote function successfully"))
+  remote = eval(await response.text());
+  console.log(chalk.magenta("=> fetched remote function successfully"));
 }
 
-export default remote
+export default remote;
