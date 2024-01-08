@@ -30,7 +30,10 @@ export default function () {
       setStep(2)
 
       let response = await fetch(
-        (PROXY ? PROXY + "/?url=" : "") + SERVER + "media/" + platform.current,
+        (PROXY ? PROXY + "/?url=" : "") +
+          SERVER +
+          "api/v1/media/" +
+          platform.current,
         {
           method: "POST",
           body: JSON.stringify({ url, quality })

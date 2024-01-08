@@ -1,7 +1,4 @@
-"use strict"
-import "dotenv/config.js"
 import axios from "axios"
-import "./utils/style.js"
 
 const gbl = {
   instagram: {},
@@ -26,21 +23,7 @@ function urlsFromItem(item, quality) {
   else return [finalURL(item, quality)]
 }
 
-const instagramOld = async (url) => {
-  try {
-    const html = await axios.get(url)
-    // prettier-ignore
-    const media = html.data.matchAll(/"width":"\d{1,4}","url":(.*?)\}|"contentUrl":(.*?),"thumbnailUrl"/g)
-    return JSON.parse("[" + Array.from(media).map((e) => e[1] || e[2]) + "]")
-  } catch (error) {
-    console.log(error)
-    return { code: 500, msg: "Internal Server Error." }
-  }
-}
-
 const instagram = async (url, quality, shortcode) => {
-  if (!process.env.IG_SESSIONID)
-    throw new Error("Instagram Session ID is missing.".style(31))
   try {
     if (gbl.instagram.fb_dtsg_last_refresh !== new Date().toDateString()) {
       const html = await axios.get("https://www.instagram.com/", {

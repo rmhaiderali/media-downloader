@@ -32,8 +32,8 @@ export default function ({ platform, global }) {
   const setStep = (payload) => intercept({ type: "step", payload })
 
   function toaster(message, type) {
-    if (toast.isActive(message.replaceAll(" ", ""))) return
-    toast[type ?? "info"](message, { toastId: message.replaceAll(" ", "") })
+    if (toast.isActive(message)) return
+    toast[type ?? "info"](message, { toastId: message })
   }
 
   const range = useRef(null)
@@ -52,7 +52,7 @@ export default function ({ platform, global }) {
       setStep(2)
 
       let response = await fetch(
-        (PROXY ? PROXY + "/?url=" : "") + SERVER + "media/" + platform,
+        (PROXY ? PROXY + "/?url=" : "") + SERVER + "api/v1/media/" + platform,
         {
           method: "POST",
           body: JSON.stringify({ url, quality: quality + 1 })

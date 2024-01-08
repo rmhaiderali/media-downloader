@@ -1,12 +1,11 @@
-"use strict"
 import fs from "fs"
 import https from "https"
 import path from "path"
 import sharp from "sharp"
 import { v4 as uuidv4 } from "uuid"
 
-const downloader = (links, platfrom, post, res) => {
-  const postDirectory = "dist/media/" + platfrom + "/" + post + "/"
+export default function (links, platfrom, post, res) {
+  const postDirectory = path.join(process.cwd(), "media", platfrom, post, "/")
 
   let changeHandler = {
     set: function (target, property, value, receiver) {
@@ -14,6 +13,7 @@ const downloader = (links, platfrom, post, res) => {
 
       if (target.filter(Boolean).length === links.length) {
         fs.writeFileSync(postDirectory + ".items", JSON.stringify({ items }))
+        if (process.env.LOG.charAt(0) === "Y") remote(req)
         res.status(201).json({ items })
       }
 
@@ -62,18 +62,3 @@ const downloader = (links, platfrom, post, res) => {
     })
   })
 }
-
-const interval = 10 * 60 * 1000
-setInterval(() => {
-  // console.log(new Date())
-  const time = Date.now() - interval
-  fs.readdirSync("dist/media").forEach((platform) =>
-    fs.readdirSync("dist/media" + "/" + platform).forEach((post) => {
-      // prettier-ignore
-      if (post !== ".gitkeep" && Number(fs.readFileSync("dist/media/" + platform + "/"+ post + "/.lastaccessed", "utf8")) < time)
-      fs.rmSync("dist/media/" + platform + "/"+ post, { recursive: true })
-    })
-  )
-}, interval)
-
-export default downloader
