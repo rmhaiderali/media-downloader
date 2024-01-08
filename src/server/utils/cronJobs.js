@@ -1,16 +1,20 @@
 import fs from "fs";
+import path from "path";
 
 function checkPostsForRemoval(interval) {
+  // console.log(new Date());
   const timeNowMinusInterval = Date.now() - interval;
   //
-  fs.readdirSync("content/media").forEach((platform) => {
-    const platformPath = "content/media/" + platform;
+  const media = path.join(process.cwd(), "media/");
+  fs.readdirSync(media).forEach((platform) => {
+    const platformPath = media + platform;
     //
     fs.readdirSync(platformPath).forEach((post) => {
+      if (post == ".gitkeep") return;
       const postPath = platformPath + "/" + post;
       //
       const lastAccessed = fs.readFileSync(postPath + "/.lastaccessed");
-      if (post !== ".gitkeep" && lastAccessed < timeNowMinusInterval)
+      if (lastAccessed < timeNowMinusInterval)
         fs.rmSync(postPath, { recursive: true });
       //
     });
@@ -18,5 +22,5 @@ function checkPostsForRemoval(interval) {
   });
 }
 
-const interval = 10 * 60 * 1000;
+const interval = 30 * 60 * 1000;
 setInterval(() => checkPostsForRemoval(interval), interval);
